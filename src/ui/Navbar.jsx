@@ -128,6 +128,7 @@ export default function Navbar() {
 				<div className=" lg:flex items-center justify-between lg:min-w-[34.869375rem]">
 					{navItems.map((item) => (
 						<Link
+						key={item.id}
 						to={item.url}
 							className={`${
 								item.id == 1

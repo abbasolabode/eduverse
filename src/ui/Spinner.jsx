@@ -5,7 +5,7 @@ export default function Spinner({
 	protectedRouteMsg,
 	loadingCourse,
 	myCourseMsg,
-
+	loadingAssignment,
 }) {
 	return (
 		<div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
@@ -16,7 +16,7 @@ export default function Spinner({
 					{protectedRouteMsg && protectedRouteMsg}{" "}
 					{loadingCourse && loadingCourse}
 					{myCourseMsg && myCourseMsg}
-
+					{loadingAssignment && loadingAssignment}
 				</p>
 			</div>
 		</div>

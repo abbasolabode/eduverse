@@ -71,7 +71,6 @@ function App() {
 								<Route path="studentLogin" element={<StudentLoginForm />} />
 								<Route path="studentSignup" element={<StudentSignupForm />} />
 								<Route path="lecturerSignup" element={<LecturerSignupForm />} />
-								
 								{/* Student Dashboard with nested routes */}
 								// This route is protected and will only be accessible if the
 								user is authenticated

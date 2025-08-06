@@ -51,10 +51,10 @@ export default function AcademicPrograms() {
 						key={program.id}
 						className="sm:min-h-[22.75rem] sm:w-[37rem] flex flex-col items-center border-white shadow-xl rounded-md mb-4 md:max-w-[21.5rem] md:pb-[1rem] lg:max-w-[18.66625rem] lg:min-h-[19rem] lg:pb-[3rem] hover:shadow-xl hover:duration-300 hover:animation hover:transition-all "
 					>
-						<div className="sm:w-[34rem] sm:min-h-[2.375rem] flex justify-between items-center md:max-w-[18.5rem] md:min-h-[3.875rem] lg:min-w-[18.66625rem] lg:min-h-[1.375rem] lg:px-4">
-							<div className="flex gap-5 sm:w-[20rem] sm:py-2 md:max-w-[18.5rem]">
+						<div className="sm:min-w-[34rem] sm:min-h-[2.375rem] flex justify-between items-center md:max-w-[18.5rem] md:min-h-[3.875rem] lg:min-w-[18.66625rem] lg:gap-1 lg:min-h-[1.375rem] lg:px-2">
+							<div className="flex gap-5 sm:w-[20rem] sm:py-2 md:min-w-[18.5rem] lg:min-w-[12.294375rem] lg:min-h-[1.375rem]">
 								<p
-									className={`sm:pl-4 sm:pr-4 sm:pt-1 rounded-full whitespace-nowrap sm:pb-1  md:font-normal  font-lato md:max-w-[6.891125rem] md:flex md: md:min-h-[1rem] md:pl-[0.625rem] md:pr-[0.625rem] md:pt-[2px] md:pb-[2px] md:text-xs lg:text-[1.25rem] lg ${
+									className={`sm:pl-4 sm:pr-4 sm:pt-1 rounded-full text-xs whitespace-nowrap sm:pb-1 md:font-normal font-lato md:min-w-[6.891125rem] md:flex md:min-h-[1rem] md:pl-[0.625rem] md:pr-[0.625rem] md:pt-[2px] md:pb-[2px] lg:text-xs lg:flex lg:items-center lg:justify-center1 lg:min-w-[5.26625rem] ${
 										program.field !== "Technology"
 											? "bg-gradient-to-r from-blue-100 to-purple-100 font-medium text-purple-300"
 											: "bg-gradient-to-r from-blue-100 to-yellow-100 font-medium text-blue-500"
@@ -62,7 +62,7 @@ export default function AcademicPrograms() {
 								>
 									{program.field}
 								</p>
-								<p className="sm:pl-4 sm:pr-4 sm:pt-1 md:max-w-[6.5rem] md:text-xs md:font-normal md:min-h-[1.375rem] whitespace-nowrap rounded-full sm:pb-1 font-lato sm:w-[20rem] text-center bg-gradient-to-r from-blue-300 to-purple-300 font-medium text-purple-500">
+								<p className="sm:pl-4 sm:pr-4 sm:pt-1 md:max-w-[6.5rem] md:text-xs lg:text-xs md:font-normal md:min-h-[1.375rem] whitespace-nowrap rounded-full sm:pb-1 font-lato sm:w-[20rem] flex justify-center items-center text-center bg-gradient-to-r from-blue-300 to-purple-300 font-medium lg:min-w-[6.528125rem] text-purple-500">
 									{program.program}
 								</p>
 							</div>

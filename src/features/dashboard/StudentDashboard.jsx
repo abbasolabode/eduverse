@@ -58,8 +58,6 @@ export default function StudentDashboard() {
 	const initials = fullName?.split(" ").map(name => name.slice(0, 1)).join("").toUpperCase().slice(0, 2);
 
 
-	/* if(!isLoadingBiodata && !biodata) return <p className="text-center text-red-500 font-bold font-lato">No biodata found. Please fill out your biodata form.</p>;
-     console.log(authenticatedUser?.fullName); */
 	return (
 		<>
 			<div className="w-full sm:w-[40rem] min-h-screen flex flex-col md:w-[48rem] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">

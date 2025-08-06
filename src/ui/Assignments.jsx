@@ -8,7 +8,7 @@ export default function Assignments() {
 
 	)
 
-	if(isLoading) return <Spinner/>
+	if(isLoading) return <Spinner  loadingAssignment="Please wait while updating your assignments"/>
 	return (
 		<div className="min-w-full md:min-w-[44.875rem] flex flex-col gap-6 bg-indigo-100 items-center justify-center pl-6 pr-6 pt-8 pb-8 mt-5">
 			{assignments?.map((assignment) => (
