@@ -142,7 +142,7 @@ export default function Footer() {
 		<footer className="min-w-full min-h-[76.84375rem] bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 md:min-w-full overflow-hidden lg:w-[64rem] lg:min-h-[38rem] ">
 			<div className="sm:w-[37rem] min-h-[49.34rem] sm:pt-[4rem] sm:pb-[4rem] md:grid md:grid-cols-2 mx-auto md:gap-[10rem] md:max-w-[45rem] md:min-h-[27rem] lg:min-w-[60rem] lg:min-h-[12.75rem] lg:grid lg:grid-cols-4 gap-4	lg:pt-[4rem] lg:pb-[4rem] md:justify-start													">
 				{/* Campus Pathways */}
-				<div className="sm:w-[37rem] min-h-[15.28rem] md:max-w-[21.5rem] md:min-h-[12.25rem] lg:min-w-[13.5rem] lg:min-h-[12.76rem]">
+				<div className="sm:w-[37rem] min-h-[15.28rem] md:max-w-[21.5rem] md:min-h-[12.25rem] lg:min-w-[13.5rem] lg:min-h-[12.76rem] lg:mt-5.5">
 					<div className="w-full min-h-full flex flex-col gap-7 md:max-w-[21.5rem] md:min-h-[12.25rem]">
 						{/* Logo component */}
 						<Logo footerLogoStyle="text-blue-500 min-h-[1.75rem]" />
@@ -161,7 +161,7 @@ export default function Footer() {
 				</div>
 
 				{/* Quick Links */}
-				<div className="sm:w-[37rem] min-h-[12.25rem] flex flex-col gap-5 lg:w-[13.5rem] lg:min-h-[12.75rem] lg:justify-center">
+				<div className="sm:w-[37rem] min-h-[12.25rem] flex flex-col gap-5 lg:w-[13.5rem] lg:min-h-[12.75rem] lg:justify-center lg:ml-[4rem]">
 					<h3 className="min-h-[1.75rem] text-[1.125rem] font-semibold text-[#60A5FA] lg:w-[13.5rem]">
 						Quick Links
 					</h3>
