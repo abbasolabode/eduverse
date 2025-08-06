@@ -31,7 +31,8 @@ function IsOpenModalProvider({ children }) {
 //CUSTOM HOOK
 function useModalClip() {
 	//using the context provided to the useModalClip 
-	const context = useContext(OpenModalContext);
+	//useContext hook is used to access the context value
+	const context = useContext(OpenModalContext); //Use the values provided to OpenModalContext.Provider inside the useModalClip hook
 
 	//Check if the context is undefined
 	if (context === undefined)

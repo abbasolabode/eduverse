@@ -106,14 +106,14 @@ const whyChoosePathways = [
 
 export default function AboutCampusPathways() {
 	return (
-		<div className="w-full min-h-screen flex flex-col relative z-0 overflow-hidden">
+		<div className="w-full min-h-screen flex flex-col relative z-0 overflow-hidden lg:min-w-[64rem] border">
 			{/* Navbar - fixed with high z-index */}
 			<header className="fixed w-full z-50">
 				<Navbar />
 			</header>
 
 			{/* Hero Section - added margin-top to account for fixed navbar */}
-			<div className="flex flex-col items-center w-full min-h-[30rem] opacity-80 bg-gradient-to-r from-blue-600 to-purple-700 mt-16 overflow-hidden">
+			<div className="flex flex-col items-center w-full min-h-[30rem] opacity-80 bg-gradient-to-br from-blue-900/80 via-purple-900/70 to-indigo-900/80 mt-16 overflow-hidden lg:min-w-[64rem] lg:min-h-[20.59375rem] border">
 				<div className="w-full min-w-[48rem] ">
 					<div className="w-full mt-[6rem] flex flex-col items-center min-h-[12.625rem] px-4">
 						{" "}
@@ -122,7 +122,7 @@ export default function AboutCampusPathways() {
 							<h1 className="text-center w-full text-[3rem] min-h-[3rem] font-lato font-bold text-white">
 								About Campus Pathways
 							</h1>
-							<p className="w-full text-center text-[1.25rem] text-white font-lato">
+							<p className="w-full text-center text-[1.25rem] text-white font-lato lg:w-[48rem]">
 								For over 75 years, Campus Pathways University has been a beacon
 								of academic excellence, innovation, and student success. We're
 								committed to providing world-class education that prepares
@@ -134,20 +134,20 @@ export default function AboutCampusPathways() {
 			</div>
 
 			{/* Stats Cards */}
-			<div className="max-w-full sm:w-[40rem] min-h-[63rem] max-auto container mx-auto z-0 md:w-[46rem] md:min-h-[26.5rem] ">
-				<div className="max-w-full min-h-[55rem] z-0 sm:w-[38rem] mx-auto flex flex-col mt-6 gap-4 md:w-full md:grid md:grid-cols-2 md:gap-2 md:items-center md:container md:min-h-[26.5rem] md:mx-auto">
+			<div className="max-w-full sm:w-[40rem] min-h-[63rem] max-auto container mx-auto z-0 md:w-[46rem] md:min-h-[26.5rem] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 lg:min-w-[64rem] lg:h-[21.75rem] lg:pl-[1rem] lg:pr-[1rem] lg:pt-[4rem] lg:pb-[4rem]">
+				<div className="max-w-full min-h-[55rem] z-0 sm:w-[38rem] mx-auto flex flex-col mt-6 gap-4 md:w-full md:grid md:grid-cols-2 md:gap-2 md:items-center md:container md:min-h-[26.5rem] md:mx-auto lg:grid-cols-4 lg:w-[64rem] lg:min-h-[21.7rem] lg:justify-start lg:items-start lg:gap-0.5">
 					{cards.map((card) => (
 						<div
 							key={card.id}
-							className="max-w-full sm:w-[38rem] sm:min-h-[12.25rem] sm:pl-8 sm:pr-8 sm:pt-8 sm:pb-8 min-h-[8.25rem] rounded-md duration-300 transition-all translate-y-2 flex flex-col items-center md:w-[22rem] md:pt-[2rem] md:pl-[2rem] md:pr-[2rem] md:pb-[2rem] shadow-lg hover:shadow-xl md:min-h-[8.25rem]"
+							className="max-w-full sm:w-[38rem] sm:min-h-[12.25rem] sm:pl-8 sm:pr-8 sm:pt-8 sm:pb-8 min-h-[8.25rem] rounded-md duration-300 transition-all translate-y-2 flex flex-col items-center md:w-[22rem] md:pt-[2rem] md:pl-[2rem] md:pr-[2rem] md:pb-[2rem] shadow-lg hover:shadow-xl md:min-h-[8.25rem] lg:max-w-[14rem] lg:max-h-[13.75rem] lg:min-w-[14rem] lg:min-h-[13.75rem] lg:flex lg:flex-col lg:items-center"
 						>
-							<small className="max-w-full w-[3rem] min-h-[3rem] text-[3rem] text-blue-500">
+							<small className="max-w-full w-[3rem] min-h-[3rem] text-[3rem] text-blue-500 lg:min-h-[3rem] lg:minw-w-[3rem]">
 								{card.icon}
 							</small>
 							<p className="max-w-full text-[1.875rem] min-h-[2.25rem] text-[#111827] font-semibold">
 								{card.number}+
 							</p>
-							<p className="text-[#4B5563] font-medium max-w-full">
+							<p className="text-[#4B5563] font-medium max-w-full flex justify-center lg:text-center">
 								{card.title}
 							</p>
 						</div>
@@ -156,14 +156,14 @@ export default function AboutCampusPathways() {
 			</div>
 
 			{/* Mission & Vision */}
-			<div className="w-full max-w-[48rem] min-h-[66.9rem] mx-auto px-4 sm:px-0 py-16 sm:pt-[4rem] sm:pb-[4rem] z-0">
-				<section className="w-full flex flex-col items-center gap-10">
+			<div className="w-full max-w-[48rem] min-h-[66.9rem] mx-auto px-4 sm:px-0 py-16 sm:pt-[4rem] sm:pb-[4rem] z-0  lg:min-w-[64rem] lg:min-h-[40.546875rem] lg:pl-[1rem] lg:pr-[1rem] lg:pt-[4rem] lg:pb-[4rem]">
+				<section className="w-full flex flex-col items-center gap-10 lg:flex-row">
 					{schoolAim.map((aim) => (
 						<div
 							key={aim.id}
-							className="w-full max-w-[46rem] rounded-xl shadow-lg hover:shadow-xl pb-6 duration-300 transition-all"
+							className="w-full max-w-[46rem] rounded-xl shadow-lg hover:shadow-xl pb-6 duration-300 transition-all lg:w-[29.5rem] lg:min-h-[18rem]"
 						>
-							<div className="w-full min-h-[12rem] bg-gradient-to-br from-blue-500 to-purple-600 overflow-hidden">
+							<div className="w-full min-h-[12rem] overflow-hidden lg:min-w-full lg:min-h-[12rem]">
 								<img
 									className="w-full h-full object-cover"
 									src={aim.url}
@@ -184,7 +184,7 @@ export default function AboutCampusPathways() {
 			</div>
 
 			{/* Our Core Values */}
-			<div className="w-full sm:max-w-[38rem] min-h-[62.75rem] sm:pt-[4rem] sm:pb-[4rem] sm:pr-[1rem] sm:pl-[1rem] mx-auto flex flex-col md:items-center gap-10 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 z-0 md:min-w-[48rem] md:min-h-[37.75rem]">
+			<div className="w-full sm:max-w-[38rem] min-h-[62.75rem] sm:pt-[4rem] sm:pb-[4rem] sm:pr-[1rem] sm:pl-[1rem] mx-auto flex flex-col md:items-center gap-10 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 z-0 md:min-w-[48rem] md:min-h-[37.75rem] lg:min-w-[64rem]">
 				<div className="sm:max-w-full min-h-20 flex flex-col items-center gap-4 md:min-h-[5.25rem]">
 					<h3 className="text-[#111827] max-w-full sm:max-w-full min-h-[1.75rem] text-[2.25rem] font-bold text-center font-lato">
 						Our Core Value
@@ -193,11 +193,11 @@ export default function AboutCampusPathways() {
 						The principles that guide everything we do
 					</p>
 				</div>
-				<div className="w-full sm:w-[38rem] min-h-[54.5rem] flex flex-col gap-8 md:min-w-[46rem] md:grid md:grid-cols-2 md:min-h-[29.5rem]">
+				<div className="w-full sm:w-[38rem] min-h-[54.5rem] flex flex-col gap-8 md:min-w-[46rem] md:grid md:grid-cols-2 md:min-h-[29.5rem] lg:min-w-[62rem] lg:min-h-[17rem] lg:gap-6 lg:grid-cols-4">
 					{coreValueCards.map((value) => (
 						<div
 							key={value.id}
-							className="max-w-full sm:max-w-[38rem] min-h-[8.125rem] sm:pt-[2rem] sm:pb-[2rem] sm:pl-[2rem] sm:pr-[2rem] rounded-lg shadow-xl hover:shadow-xl pb-6 duration-300 transition-all translate-y-2 md:w-[22rem] md:min-h-[13.75rem] md:pl-[2rem] md:pr-[2rem] md:pt-[2rem] md:pb-[2rem] md:shadow-2xl md:hover:shadow-lg"
+							className="max-w-full sm:max-w-[38rem] min-h-[8.125rem] sm:pt-[2rem] sm:pb-[2rem] sm:pl-[2rem] sm:pr-[2rem] rounded-lg shadow-xl hover:shadow-xl pb-6 duration-300 transition-all translate-y-2 md:w-[22rem] md:min-h-[13.75rem] md:pl-[2rem] md:pr-[2rem] md:pt-[2rem] md:pb-[2rem] md:shadow-2xl md:hover:shadow-lg lg:max-w-[14rem] lg:h-[17rem] "
 						>
 							<div className="max-w-full sm:max-w-full min-h-full">
 								<div className="flex flex-col items-center gap-2">
@@ -218,7 +218,7 @@ export default function AboutCampusPathways() {
 			</div>
 
 			{/* Our Rich History */}
-			<div className="w-full sm:w-[38rem] min-h-[40rem] sm:pt-[4rem] sm:pb-[4rem] sm:pl-[1rem] sm:pr-[1rem] mx-auto md:w-[48rem] md:min-h-[46.1875rem] md:pl-[1rem] md:pr-[1rem] md:pt-[4rem] md:pb-[4rem] ">
+			<div className="w-full sm:w-[38rem] min-h-[40rem] sm:pt-[4rem] sm:pb-[4rem] sm:pl-[1rem] sm:pr-[1rem] mx-auto md:w-[48rem] md:min-h-[46.1875rem] md:pl-[1rem] md:pr-[1rem] md:pt-[4rem] md:pb-[4rem] lg:min-w-[62rem] lg:min-h-[16rem] ">
 				<div className="w-full sm:w-full min-h-full md:h-full md:w-full rounded-2xl ">
 					<div className="max-w-full sm:max-w-full min-h-[16rem] bg-gradient-to-r from-blue-900/90 to-purple-900/90 bg-transparent shadow-2xl md:min-h-[13rem] rounded-md">
 						<img
@@ -228,11 +228,11 @@ export default function AboutCampusPathways() {
 						/>
 					</div>
 
-					<div className="max-w-full sm:max-w-full min-h-[18.21875rem] mx-auto bg-gradient-to-r from-blue-600 to-purple-600 flex flex-col gap-6">
+					<div className="max-w-full sm:max-w-full min-h-[18.21875rem] mx-auto bg-gradient-to-r from-blue-600 to-purple-600 flex flex-col gap-6 lg:pl-[3rem] lg:pr-[3rem] lg:pt-[3rem] lg:pb-[3rem]  ">
 						<h3 className="max-w-full sm:max-w-full text-white font-bold min-h-[2.5rem] text-[2.25rem] font-lato text-center sm:pt-3">
 							Our Rich History
 						</h3>
-						<p className="max-w-full sm:max-w-full min-h-[14.21875rem] text-[#DBEAFE] text-[1.25rem] text-center">
+						<p className="max-w-full sm:max-w-full min-h-[14.21875rem] text-[#DBEAFE] text-[1.25rem] text-center lg:w-[56rem] lg:tracking-wider lg:min-h-[8.125rem]">
 							Founded in 1949, Campus Pathways University began as a small
 							liberal arts college with just 200 students. Today, we've grown
 							into a comprehensive research university serving over 25,000
@@ -245,8 +245,8 @@ export default function AboutCampusPathways() {
 			</div>
 
 			{/* Why Choose Campus Pathways */}
-			<div className="w-full sm:w-[40rem] min-h-[79rem] sm:pt-[4rem] sm:pb-[4rem] sm:pr-[1rem] sm:pl-[1rem] flex flex-col md:items-center gap-10 md:w-[46rem] md:min-h-[42.25rem] md:pl-[1rem] md:pr-[1rem] md:pb-[4rem] md:pt-[4rem] mx-auto">
-				<div className="w-full sm:w-[38rem] min-h-[5.25rem] flex flex-col items-center gap-3 md:min-h-[5.25rem] md:text-center md:w-full">
+			<div className="w-full sm:w-[40rem] min-h-[79rem] sm:pt-[4rem] sm:pb-[4rem] sm:pr-[1rem] sm:pl-[1rem] flex flex-col md:items-center gap-10 md:w-[46rem] md:min-h-[42.25rem] md:pl-[1rem] md:pr-[1rem] md:pb-[4rem] md:pt-[4rem] mx-auto lg:min-w-[64rem] lg:pt-[4rem] lg:pb-[4rem] lg:pl-[1rem] lg:pr-[1rem]">
+				<div className="w-full sm:w-[38rem] min-h-[5.25rem] flex flex-col items-center gap-3 md:min-h-[5.25rem] md:text-center md:w-full lg:min-w-[62rem] lg:min-h-[5.25rem]">
 					<h2 className="w-full sm:w-full min-h-[2.5rem] font-bold font-lato text-[2.25rem] text-[#111827] ">
 						Why Choose Campus Pathways
 					</h2>
@@ -256,11 +256,11 @@ export default function AboutCampusPathways() {
 				</div>
 
 				<div className="w-full sm:w-[38rem] min-h-[22.25rem] md:w-full md:min-h-[34.375rem] ">
-					<div className="w-full sm:w-[38rem] min-h-[22.25rem] flex gap-5 flex-col md:w-full md:min-h-[34rem] md:flex-row ">
+					<div className="w-full sm:w-[38rem] min-h-[22.25rem] flex gap-5 flex-col md:w-full md:min-h-[34rem] md:flex-row lg:min-w-[62rem]">
 						{whyChoosePathways.map((item) => (
 							<div
 								key={item.id}
-								className="w-full sm:w-full min-h-full shadow-xl hover:shadow-2xl pb-6 duration-300 transition-all translate-y-2 rounded-xl md:w-[14rem] md:min-h-full "
+								className="w-full sm:w-full min-h-full shadow-xl hover:shadow-2xl pb-6 duration-300 transition-all translate-y-2 rounded-xl md:w-[14rem] md:min-h-full lg:min-w-[19.333125rem] lg:h-[34rem] lg:shadow-xl lg:hover:shadow-lg"
 							>
 								<div className="max-w-full sm:max-w-full min-h-[12rem] md:w-full md:min-h-[12rem] ">
 									<img
@@ -270,11 +270,11 @@ export default function AboutCampusPathways() {
 									/>
 								</div>
 
-								<div className="w-full sm:w-full min-h-[10.25rem] sm:pt-[2rem] sm:pb-[2rem] sm:pr-[2rem] sm:pl-[2rem] flex flex-col md:gap-7 md:leading-8 gap-5 md:pl-[2rem] md:pr-[2rem] md:pt-[2rem] md:pb-[2rem] ">
-									<h3 className="text-[1.5rem] text-[#111827] min-h-[2rem] font-bold font-lato">
+								<div className="w-full sm:w-full min-h-[10.25rem] sm:pt-[2rem] sm:pb-[2rem] sm:pr-[2rem] sm:pl-[2rem] flex flex-col md:gap-7 md:leading-8 gap-5 md:pl-[2rem] md:pr-[2rem] md:pt-[2rem] md:pb-[2rem]  lg:min-w-[19.333125rem] lg:pl-[2rem] lg:pt-[2rem] lg:pb-[2rem] lg:pr-[2rem] lg:min-h-[12rem]">
+									<h3 className="text-[1.5rem] text-[#111827] min-h-[2rem] font-bold font-lato lg:text-[1.5rem]">
 										{item.header}
 									</h3>
-									<p className="w-full sm:w-[34rem] text-[#4B5563] md:w-[10rem] md:min-h-[18rem]">
+									<p className="w-full sm:w-[34rem] text-[#4B5563] md:w-[10rem] md:min-h-[18rem] lg:min-w-[15.333125rem] ">
 										{item.purpose}
 									</p>
 								</div>
@@ -283,7 +283,7 @@ export default function AboutCampusPathways() {
 					</div>
 				</div>
 			</div>
-
+			{/* Footer component */}
 			<Footer />
 		</div>
 	);

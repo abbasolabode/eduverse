@@ -7,7 +7,7 @@ export function useStayUpdated(){
  
     const queryClient = useQueryClient(); // Getting the query client for managing cache
 
-	const { mutate: stayUpdated, isLoading: isStayingUpdated } = useMutation({
+	const { mutate: stayUpdated, isPending: isStayingUpdated } = useMutation({
 		mutationFn: getStayUpdated, // Function to call the API for creating new data
 
 		onSuccess: () => {

@@ -1,17 +1,16 @@
-
-import { IoIosArrowRoundBack } from "react-icons/io";
+/* eslint-disable no-unused-vars */
 import { FaGraduationCap } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 import { CiMail } from "react-icons/ci";
 import { GoUpload } from "react-icons/go";
 import Navbar from "./Navbar";
-import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import React, {memo} from 'react';
 import { useApplicationForm } from "../hook/useApplicationForm";
 import { useForm, Controller } from "react-hook-form";
-import Spinner from "./Spinner";
 import toast from "react-hot-toast";
+import BackHomeButton from "./BackHomeButton";
 
 const preferredPrograms = [
 	{
@@ -36,7 +35,7 @@ const preferredPrograms = [
 	},
 ];
 
-export default function ApplicationForm() {
+ const ApplicationForm = memo(function ApplicationForm() {
 	//useForm Hook from react
 	const { handleSubmit, register, reset, control, formState } = useForm();
 	//Extracting errors
@@ -44,43 +43,52 @@ export default function ApplicationForm() {
 	//useState for managing date input
 	const [selectedDate, setSelectedDate] = useState();
 	const [confirmed, setConfirmed] = useState(false);
+
 	//Custom Hook
-	const { applyForm, isApplyingForm } = useApplicationForm();
-	//useNavigate hook
-	const navigate = useNavigate();
-      
-	//The function responsible for the sending data to the API function
-	function onSubmit(data) {
-		console.log(data);
-		if (!confirmed)
-			return toast.error("Please tick the checkbox for confirmation");
-		//mutate function that calls the mutation function
-		applyForm({ ...data, confirmed: confirmed}, {
-		onSettled: () => reset(), // The reset function is called if the mutation is either successful or failed
+	const { applyForm, isPending } = useApplicationForm();
+
+	//useRef
+	const fileInputRef = useRef();
+
+	function onSubmit(formData) {
+		console.log("Form data before submission:", formData);
+		console.log("Form data:", {
+			resume: formData.fileResume,
+			transcript: formData.fileTranscript,
 		});
-		setSelectedDate("");
+
+		if (!formData.fileResume || !formData.fileTranscript) {
+			return toast.error("Please upload a file");
+		}
+
+		if (!confirmed) {
+			return toast.error("Please tick the checkbox for confirmation");
+		}
+
+		applyForm(
+			{...formData, confirmed: confirmed },
+			{
+				// Optional: onSettled callback
+				onSettled: () => {
+					// reset();
+					setSelectedDate("");
+				},
+			}
+		);
 	}
 
 	return (
-		<div className="w-full sm:w-[40rem] min-h-screen flex flex-col md:w-[48rem]">
+		<div className="w-full sm:w-[40rem] min-h-screen flex flex-col lg:items-center md:w-[48rem] lg:min-w-[64rem]">
 			{/* Navbar*/}
 			<div className="fixed w-full z-50">
 				<Navbar />
 			</div>
 
-			<div className="min-h-[6.75rem] w-full sm:w-[40rem] mt-[6.5rem] shadow-sm sm:pt-[1.5rem] sm:pb-[1.5rem] sm:pr-[1rem] sm:pl-[1rem] md:w-[48rem] md:min-h-[6.75rem]">
-				<div className="flex justify-between items-center w-full ">
+			<div className="min-h-[6.75rem] w-full sm:w-[40rem] mt-[6.5rem] shadow-sm sm:pt-[1.5rem] sm:pb-[1.5rem] sm:pr-[1rem] sm:pl-[1rem] md:w-[48rem] md:min-h-[6.75rem] lg:min-w-[62rem] lg:min-h-[6.75rem] lg:pl-[1rem] lg:pr-[1rem] lg:pt[1.5rem] lg:pb-[1.5rem] lg:flex lg:justify-center ">
+				<div className="flex justify-between items-center w-full">
 					<div className="flex gap-6 items-center w-full sm:w-[26.323125rem] min-h-[3.75rem] ">
 						{/* Go to home button */}
-						<button
-							onClick={() => navigate("/")}
-							className="flex justify-around items-center shadow-2xl rounded-lg ring-1 ring-gray-300 duration-300 transition-all hover:shadow-2xl sm:w-[8.5766875rem] min-h-[2.125rem] sm:pl-[0.75rem] sm:pr-[0.75rem] "
-						>
-							<IoIosArrowRoundBack className="text-[0.9rem] font-bold max-w-full sm:max-w-[1rem]" />
-							<p className="text-[0.875rem] whitespace-nowrap font-bold text-[#020817]">
-								Back to Home
-							</p>
-						</button>
+						<BackHomeButton />
 
 						<div className="w-full sm:w-[16.121875rem] ">
 							<h3 className="w-full sm:w-[16.121875rem] font-lato font-bold whitespace-nowrap text-[1.875rem] min-h-[2.25rem]">
@@ -105,10 +113,11 @@ export default function ApplicationForm() {
 			{/* Form */}
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className="w-full sm:w-[38rem] mt-[2rem] min-h-[119.1875rem] container mx-auto z-0  shadow-2xl md:w-[48rem] md:min-h-[91.5625rem] md:pl-[1rem] md:pr-[1rem] md:pt-[2rem] md:pb-[2rem]"
+				className="w-full sm:w-[38rem] mt-[2rem] min-h-[119.1875rem] container mx-auto shadow-2xl md:w-[48rem] md:min-h-[91.5625rem] md:pl-[1rem] md:pr-[1rem] md:pt-[2rem] md:pb-[2rem] lg:w-[64rem] lg:pl-[1rem] lg:pt-[2rem] lg:pr-[1rem] lg:pb-[2rem] "
 			>
 				{/* Form Header */}
-				<div className="w-full bg-gradient-to-r from-blue-50 to-purple-50 min-h-[6.625rem] sm:w-full sm:pr-[1.5rem] sm:pl-[1.5rem] sm:pt-[1.5rem] sm:pb-[1.5rem] text-center md:w-[46rem] md:pl-[1.5rem]  md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem]">
+				<div className="min-w-full md:min-w-full">
+				<div className="w-full bg-gradient-to-r from-blue-50 to-purple-50 min-h-[6.625rem] sm:w-full sm:pr-[1.5rem] sm:pl-[1.5rem] sm:pt-[1.5rem] sm:pb-[1.5rem] text-center md:w-[46rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] mx-auto lg:min-w-[56rem] lg:min-h-[6.625rem] ">
 					<h3 className="max-w-full sm:w-[35rem] text-[1.5rem] text-[#020817] min-h-[2rem] font-semibold font-lato md:text-center md:w-full ">
 						Application Form
 					</h3>
@@ -118,7 +127,7 @@ export default function ApplicationForm() {
 				</div>
 
 				{/* Form body */}
-				<div className="w-full sm:w-[34rem] mx-auto  sm:pr-[2rem] sm:pl-[2rem] sm:pb-[2rem] sm:pt-[2rem] md:w-[46rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] ">
+				<div className="w-full sm:w-[34rem] mx-auto  sm:pr-[2rem] sm:pl-[2rem] sm:pb-[2rem] sm:pt-[2rem] md:w-[46rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] lg:min-w-[56rem] ">
 					<div className="w-full sm:w-full">
 						{/* Personal Information */}
 						<div className="w-full sm:w-full min-h-[12.25rem] md:w-[42rem] md:min-h-[7rem] ">
@@ -128,9 +137,9 @@ export default function ApplicationForm() {
 									Personal Information
 								</p>
 							</div>
-							<div className="w-full min-h-full md:w-full md:min-h-full md:flex md:items-center md:gap-2">
+							<div className="w-full min-h-full md:w-full md:min-h-full md:flex md:items-center md:gap-2 lg:min-w-[52rem] lg:min-h-[7rem]">
 								{/* input fields for personal information... 1 First Name*/}
-								<div className="max-w-full sm:max-w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem]">
+								<div className="max-w-full sm:max-w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem] lg:min-w-[25.5rem]">
 									<label
 										className="max-w-full sm:max-w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
 										htmlFor="firstName"
@@ -141,13 +150,9 @@ export default function ApplicationForm() {
 										className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] "
 										type="text"
 										id="firstName"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("firstName", {
 											required: "This field is required",
-											minLength: {
-												value: 2,
-												message: "Minimum 2 characters",
-											},
 										})}
 									/>
 									<small className="text-[0.875rem] font-lato mt-1 text-red-500">
@@ -156,7 +161,7 @@ export default function ApplicationForm() {
 								</div>
 
 								{/* input fields for personal information... 2 Last Name*/}
-								<div className="max-w-full sm:max-w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem] ">
+								<div className="max-w-full sm:max-w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem] lg:min-w-[25.5rem] ">
 									<label
 										className="max-w-full sm:max-w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
 										htmlFor="firstName"
@@ -167,13 +172,9 @@ export default function ApplicationForm() {
 										className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem]  mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] "
 										type="text"
 										id="lastName"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("lastName", {
 											required: "This field is required",
-											minLength: {
-												value: 2,
-												message: "Minimum of 2 characters",
-											},
 										})}
 									/>
 									<small className="text-[0.875rem] font-lato mt-1 text-red-500">
@@ -184,16 +185,16 @@ export default function ApplicationForm() {
 						</div>
 
 						{/* Contact Information */}
-						<div className="w-full sm:w-full min-h-[12.25rem] mt-4 md:w-[42rem] ">
+						<div className="w-full sm:w-full min-h-[12.25rem] mt-4 md:w-[42rem] lg:min-w-[52rem] ">
 							<div className="min-h-[1.75rem] max-w-full sm:max-w-[34rem] gap-2 flex items-center">
 								<CiMail className="w-[1.25rem] min-h-[1.25rem] text-[1.25rem] text-blue-800" />
 								<p className="max-w-full sm:max-w-full min-h-full  text-[1.125rem] text-[#020817] font-semibold font-lato  ">
 									Contact Information
 								</p>
 							</div>
-							<div className="w-full min-h-full md:w-full md:min-h-full md:flex md:items-center md:gap-2">
+							<div className="w-full min-h-full md:w-full md:min-h-full md:flex md:items-center md:gap-2  lg:min-w-[52rem]">
 								{/* input fields for personal information... 2 First Name*/}
-								<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem]">
+								<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem] lg:min-w-[25.5rem] ">
 									<label
 										className="max-w-full sm:max-w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
 										htmlFor="email"
@@ -201,10 +202,10 @@ export default function ApplicationForm() {
 										Email Address<span className="text-red-500 ml-1">*</span>
 									</label>
 									<input
-										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem]"
+										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 										type="text"
 										id="email"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("email", {
 											required: "This field is required",
 											pattern: {
@@ -219,7 +220,7 @@ export default function ApplicationForm() {
 								</div>
 
 								{/* input fields for personal information... 2 Last Name*/}
-								<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem]">
+								<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[20.5rem]  lg:min-w-[25.5rem]">
 									<label
 										className="max-w-full sm:max-w-[9.92rem]  font-lato font-semibold min-h-[1.15625rem]"
 										htmlFor="phone"
@@ -227,10 +228,10 @@ export default function ApplicationForm() {
 										Phone <span className="text-red-500 ">*</span>
 									</label>
 									<input
-										className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem]   mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem]"
+										className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem]   mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 										type="text"
 										id="phoneNumber"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("phoneNumber", {
 											required: "This field is required",
 										})}
@@ -243,7 +244,7 @@ export default function ApplicationForm() {
 						</div>
 
 						{/* Address */}
-						<div className="w-full sm:w-full min-h-[22.75rem] mt-4 md:w-[42rem] md:min-h-[10.25rem] md:mt-0">
+						<div className="w-full sm:w-full min-h-[22.75rem] mt-4 md:w-[42rem] md:min-h-[10.25rem] md:mt-0  lg:min-w-[51.4375rem] ">
 							<div className="min-h-[1.75rem] w-full sm:w-[34rem] gap-2 flex items-center">
 								<CiMail className="w-[1.25rem] min-h-[1.25rem] text-[1.25rem] text-blue-800" />
 								<p className="w-full sm:w-full min-h-full  text-[1.125rem] text-[#020817] font-semibold font-lato  ">
@@ -263,7 +264,7 @@ export default function ApplicationForm() {
 									className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-full"
 									type="text"
 									id="streetAddress"
-									disabled={isApplyingForm}
+									disabled={isPending}
 									{...register("streetAddress", {
 										required: "This field is required",
 									})}
@@ -274,9 +275,9 @@ export default function ApplicationForm() {
 							</div>
 
 							{/* For City, State, Zip code */}
-							<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col gap-3 md:w-[42rem] md:flex-row  md:items-center md:min-h-[4.25rem]">
+							<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col gap-3 md:w-[42rem] md:flex-row  md:items-center md:min-h-[4.25rem] lg:min-w-[51.4375rem]">
 								{/* City */}
-								<div className="w-full sm:w-full flex flex-col md:mt-4.5">
+								<div className="w-full sm:w-full flex flex-col md:mt-4.5 lg:min-w-[16.66625rem]">
 									<label
 										className="w-full sm:w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
 										htmlFor="city"
@@ -284,10 +285,10 @@ export default function ApplicationForm() {
 										City <span className="text-red-500">*</span>
 									</label>
 									<input
-										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem]"
+										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
 										type="text"
 										id="city"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("city", {
 											required: "This field is required",
 										})}
@@ -306,10 +307,10 @@ export default function ApplicationForm() {
 										State <span className="text-red-500">*</span>
 									</label>
 									<input
-										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem]"
+										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
 										type="text"
 										id="state"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("state", {
 											required: "This field is required",
 										})}
@@ -328,10 +329,10 @@ export default function ApplicationForm() {
 										Zip Code <span className="text-red-500">*</span>
 									</label>
 									<input
-										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem]"
+										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
 										type="text"
 										id="zipCode"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("zipCode", {
 											required: "This field is required",
 										})}
@@ -345,8 +346,8 @@ export default function ApplicationForm() {
 					</div>
 
 					{/* Academic Information */}
-					<div className="w-full sm:w-full min-h-[20rem md:min-h-[14.75rem] md:w-[42rem] ">
-						<div className="min-h-[1.75rem] w-full sm:w-[34rem] mt-3 gap-2 flex items-center md:w-full">
+					<div className="w-full sm:w-full min-h-[20rem md:min-h-[14.75rem] md:w-[42rem] lg:min-w-[52rem]">
+						<div className="min-h-[1.75rem] w-full sm:w-[34rem] mt-3 gap-2 flex items-center md:w-full lg:min-w-full">
 							<FaGraduationCap className="w-[1.25rem] min-h-[1.25rem] text-[1.25rem] text-blue-800" />
 							<p className="w-full sm:w-[12.92rem] font-lato font-semibold min-h-[1.15625rem] md:w-full">
 								Academic Information
@@ -354,10 +355,10 @@ export default function ApplicationForm() {
 						</div>
 
 						{/*Preferred program & Preferred start date  */}
-						<div className="w-full sm:w-full min-h-[9.5rem]">
-							<div className="w-full md:w-full md:flex md:items-center md:gap-2">
+						<div className="w-full sm:w-full min-h-[9.5rem] lg:min-w-full">
+							<div className="w-full md:w-full md:flex md:items-center md:gap-2 lg:min-w-full">
 								{/* 1 */}
-								<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:min-h-[4.25rem] md:w-[20.5rem]">
+								<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:min-h-[4.25rem] md:w-[20.5rem] lg:min-w-[25.5rem]">
 									<label
 										className="w-full sm:w-[12.92rem] font-lato font-semibold min-h-[1.15625rem]"
 										htmlFor="preferredProgram"
@@ -368,13 +369,17 @@ export default function ApplicationForm() {
 
 									<select
 										id="preferredProgram"
-										disabled={isApplyingForm}
+										disabled={isPending}
 										{...register("preferredProgram", {
 											required: "Select a program",
 										})}
-										className=" w-[32.375rem] px-2 sm:w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem]"
+										className=" w-[32.375rem] px-2 sm:w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 									>
-										<option value="" className="text-xs py-1 font-lato">
+										<option
+											value=""
+											disabled=""
+											className="text-xs py-1 font-lato"
+										>
 											Select a program
 										</option>
 										{preferredPrograms.map((program) => (
@@ -396,11 +401,12 @@ export default function ApplicationForm() {
 								<div className="max-w-full sm:max-w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:min-h-[4.25rem] md:w-[20.5rem]">
 									<label
 										className="max-w-full sm:max-w-[12.92rem] font-lato font-semibold min-h-[1.15625rem]"
-										htmlFor="PreferredProgram"
+										htmlFor="PreferredDate"
 									>
 										Preferred Start Date <span className="text-red-500">*</span>
 									</label>
 									<input
+										disabled={isPending}
 										type="date"
 										id="preferredDate"
 										{...register("preferredDate", {
@@ -408,7 +414,7 @@ export default function ApplicationForm() {
 										})}
 										value={selectedDate}
 										onChange={(e) => setSelectedDate(e.target.value)}
-										className=" max-w-[32.375rem] px-2 sm:max-w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem]"
+										className=" max-w-[32.375rem] px-2 sm:max-w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 									/>
 									<small className="text-[0.875rem] font-lato mt-1 text-red-500">
 										{errors && errors?.preferredDate?.message}
@@ -417,7 +423,7 @@ export default function ApplicationForm() {
 							</div>
 
 							{/* Previous education */}
-							<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[42rem]">
+							<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:w-[42rem] lg:min-w-[52rem]">
 								<label
 									className="w-full sm:w-[12.92rem] text-[0.875rem] font-lato font-semibold min-h-[1.15625rem]"
 									htmlFor="previousEducation"
@@ -426,14 +432,14 @@ export default function ApplicationForm() {
 								</label>
 								<textarea
 									id="prevEducation"
-									disabled={isApplyingForm}
+									disabled={isPending}
 									{...register("prevEducation", {
 										required: "This field is required",
 									})}
-									minLength="20"
-									maxLength="300"
+									minLength="4"
+									maxLength="500"
 									placeholder="Please describe your educational background"
-									className="h-24 border text-sm font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-2"
+									className="h-24 border text-sm font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-2 lg:min-w-[52rem]"
 								></textarea>
 								<small className="text-[0.875rem] font-lato mt-1 text-red-500 ">
 									{errors && errors?.prevEducation?.message}
@@ -443,7 +449,7 @@ export default function ApplicationForm() {
 					</div>
 
 					{/* Personal Statement */}
-					<div className="w-full sm:full min-h-[6.75rem] mt-[1rem] flex flex-col gap-3  md:w-[42rem]">
+					<div className="w-full sm:full min-h-[6.75rem] mt-[1rem] flex flex-col gap-3 md:w-[42rem] lg:min-w-52rem]">
 						<div>
 							<p className="w-full sm:w-[12.92rem] font-lato text-[1.125rem] font-semibold min-h-[1.15625rem]">
 								Personal Statement
@@ -454,18 +460,19 @@ export default function ApplicationForm() {
 								htmlFor="previousEducation"
 								className="min-h-[1.15625rem] font-semibold  text-[0.875rem]"
 							>
-								Why do you want to join EduVerse <span>*</span>
+								Why do you want to join EduVerse{" "}
+								<span className="text-red-500">*</span>
 							</label>
 							<textarea
 								id="personalStatement"
 								{...register("personalStatement", {
 									required: "Please upload a file",
 								})}
-								minLength="20"
-								maxLength="300"
-								disabled={isApplyingForm}
+								minLength=""
+								maxLength="500"
+								disabled={isPending}
 								placeholder="Tell us about your goals and why you choose EduVerse..."
-								className="h-24 text-sm border font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-1 md:w-full"
+								className="h-24 text-sm border font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-1 md:w-full lg:min-w-[52rem]"
 							></textarea>
 							<small className="text-[0.875rem] font-lato mt-1 text-red-500 ">
 								{errors && errors?.prevEducation?.message}
@@ -474,7 +481,7 @@ export default function ApplicationForm() {
 					</div>
 
 					{/* Supporting documents */}
-					<div className="w-full sm:w-full min-h-[17.75rem] mt-[1rem] flex flex-col gap-3 md:w-[42rem] md:min-h-[9.75rem]">
+					<div className="w-full sm:w-full min-h-[17.75rem] mt-[1rem] flex flex-col gap-3 md:w-[42rem] md:min-h-[9.75rem]  lg:min-w-[52rem]">
 						<div className="flex items-center gap-2">
 							<GoUpload className="text-blue-600 font-bold w-[1.25rem] min-h-[1.125rem]" />
 							<p className="w-full sm:w-[12.92rem] font-lato text-[1.125rem] font-semibold min-h-[1.15625rem]">
@@ -485,7 +492,7 @@ export default function ApplicationForm() {
 						<div className=" w-full sm:w-full flex flex-col gap-4 items-center justify-center md:w-full md:min-h-full md:flex-row ">
 							{/* documents 1... Upload Transcript */}
 
-							<div className="container mx-auto relative max-w-full sm:pl-[1rem] border border-gray-500 rounded-md border-dotted sm:pr-[1rem] sm:pt-[1rem] sm:pb-[1rem] sm:max-w-[31.75rem] min-h-[4.75rem] flex flex-col items-center mx-container md:w-[20.5rem] md:min-h-[7rem]">
+							<div className="container mx-auto relative max-w-full sm:pl-[1rem] border border-gray-500 rounded-md border-dotted sm:pr-[1rem] sm:pt-[1rem] sm:pb-[1rem] sm:max-w-[31.75rem] min-h-[4.75rem] flex flex-col items-center mx-container md:w-[20.5rem] md:min-h-[7rem] lg:min-w-[25.5rem]">
 								<label
 									htmlFor="fileTranscript"
 									className="mx-auto flex flex-col justify-center items-center max-w-full sm:max-w-full min-h-full"
@@ -500,29 +507,37 @@ export default function ApplicationForm() {
 										PDF, DOC, <span>or</span> DOCX
 									</p>
 								</label>
-                                
+
 								{/* The Controller component comes from React Hook Form which is used to manage file input like PDF, Images, DOCX, or DOC */}
 								<Controller
 									name="fileTranscript"
 									control={control}
-									rules={{ required: "Please upload a file" }}
-									render={({ field, fieldState: { error } }) => (
+									rules={{ required: "Please upload your transcript" }}
+									render={({
+										field: { onChange, value, ref },
+										fieldState: { error },
+									}) => (
 										<>
 											<input
 												type="file"
 												id="fileTranscript"
-												disabled={isApplyingForm}
-												onChange={(e) => field.onChange(e.target.files?.[0] || null)}
-												onBlur={field.onBlur}
-												name={field.name}
-												ref={field.ref}
+												disabled={isPending}
+												ref={ref} // Use ONLY RHF's ref
+												onChange={(e) => {
+													const file = e.target.files?.[0];
+													if (file) {
+														onChange(file);
+													} else {
+														onChange(null); // Explicitly handle empty selection
+													}
+												}}
+												value={undefined} // CRITICAL for file inputs
 												accept=".pdf,.doc,.docx"
-												aria-label="Upload documents"
 												className="max-w-full opacity-0 absolute inset-0 w-full h-full cursor-pointer sm:max-w-full min-h-[4.75rem] mx-auto container md:w-[20.5rem] md:min-h-[7rem]"
 											/>
 											{error && (
 												<small className="text-[0.875rem] font-lato mt-1 text-red-500">
-													{error?.message}
+													{error.message}
 												</small>
 											)}
 										</>
@@ -531,7 +546,7 @@ export default function ApplicationForm() {
 							</div>
 
 							{/* documents 2... Upload Resume*/}
-							<div className=" container mx-auto relative max-w-full sm:pl-[1rem] border border-gray-500 rounded-md border-dotted sm:pr-[1rem] sm:pt-[1rem] sm:pb-[1rem] sm:max-w-[31.75rem] min-h-[4.75rem] flex flex-col items-center mx-container md:w-[20.5rem] md:min-h-[7rem]">
+							<div className=" container mx-auto relative max-w-full sm:pl-[1rem] border border-gray-500 rounded-md border-dotted sm:pr-[1rem] sm:pt-[1rem] sm:pb-[1rem] sm:max-w-[31.75rem] min-h-[4.75rem] flex flex-col items-center mx-container md:w-[20.5rem] md:min-h-[7rem] lg:min-w-[25.5rem]">
 								<label
 									htmlFor="fileResume"
 									className=" mx-auto flex flex-col justify-center items-center max-w-full sm:max-w-full min-h-full "
@@ -550,24 +565,27 @@ export default function ApplicationForm() {
 								<Controller
 									name="fileResume"
 									control={control}
-									rules={{ required: "Please upload a file" }}
-									render={({ field, fieldState: { error } }) => (
+									rules={{ required: "Please upload your resume" }}
+									render={({
+										field: { onChange, value, ...field },
+										fieldState: { error },
+									}) => (
 										<>
 											<input
 												type="file"
 												id="fileResume"
-												disabled={isApplyingForm}
-												onChange={(e) => field.onChange(e.target.files?.[0] || null)}
-												onBlur={field.onBlur}
-												name={field.name}
-												ref={field.ref}
+												disabled={isPending}
+												{...field}
+												onChange={(e) => {
+													const file = e.target.files?.[0];
+													onChange(file);
+												}}
 												accept=".pdf,.doc,.docx"
-												aria-label="Upload documents"
-												className="max-w-full opacity-0 absolute inset-0 w-full h-full cursor-pointer sm:max-w-full min-h-[4.75rem] mx-auto container md:w-[20.5rem] md:min-h-[7rem]"
+												className="max-w-full opacity-0 absolute inset-0 w-full h-full cursor-pointer sm:max-w-full min-h-[4.75rem] mx-auto container md:w-[20.5rem] md:min-h-[7rem] lg:min-w-[25.5rem]"
 											/>
 											{error && (
 												<small className="text-[0.875rem] font-lato mt-1 text-red-500">
-													{error?.message}
+													{error.message}
 												</small>
 											)}
 										</>
@@ -578,18 +596,16 @@ export default function ApplicationForm() {
 					</div>
 
 					{/* Horizontal rule */}
-					<hr className="text-gray-300 font-light mt-4" />
+					<hr className="text-gray-300 font-light mt-4 lg:min-w-[52rem]" />
 					{/* Button */}
-					<div className="flex flex-col-reverse gap-4 items-center justify-center min-h-[7rem] mt-5 max-w-full sm:max-w-full md:w-[42rem] md:min-h-[7.5625rem]">
+					<div className="flex flex-col-reverse gap-4 items-center justify-center min-h-[7rem] mt-5 max-w-full sm:max-w-full md:w-[42rem] md:min-h-[7.5625rem] lg:min-w-[52rem]">
 						<button
-							disabled={!confirmed || isApplyingForm}
-							className={`text-white w-auto max-w-full bg-gradient-to-r from-blue-600 to-purple-600  hover:to-purple-700 sm:max-w-[24.25rem] min-h-[2.75rem] rounded-md font-lato sm:px-2 font-semibold text-sm md:w-[10rem] md:min-h-[3.75rem] ${
-								isApplyingForm && "hover:bg-blue-300"
+							disabled={isPending}
+							className={`text-white w-auto max-w-full bg-gradient-to-r from-blue-600 to-purple-600  hover:to-purple-700 sm:max-w-[24.25rem] min-h-[2.75rem] rounded-md font-lato sm:px-2 font-semibold text-sm md:w-[10rem] md:min-h-[3.75rem] lg:min-w-[11.619375rem] lg:min-h-[2.75rem] ${
+								isPending && "hover:bg-blue-300"
 							} `}
 						>
-							{isApplyingForm
-								? "animate-pulse cursor-not-allowed"
-								: "Submit Application"}
+							{isPending ? "Submitting..." : "Submit Application"}
 						</button>
 
 						{/* Checkbox */}
@@ -597,18 +613,19 @@ export default function ApplicationForm() {
 							<input
 								className="w-[1.125rem] min-h-[1.25rem]"
 								type="checkbox"
-								disabled={isApplyingForm}
+								disabled={isPending}
 								name=""
 								id="checkBox"
 								checked={confirmed}
-								onClick={() => setConfirmed(confirm => !confirm)}
+								onChange={() => setConfirmed((confirm) => !confirm)}
 							/>
 							<small className="text-gray-500 font-lato font-light">
-								By submitting this application, you agree to our terms of
-								Service and Privacy Policy
+								By clicking this box, you agree to our terms of Service and
+								Privacy Policy
 							</small>
 						</div>
 					</div>
+				</div>
 				</div>
 			</form>
 
@@ -619,3 +636,6 @@ export default function ApplicationForm() {
 		</div>
 	);
 }
+)
+
+export default ApplicationForm;

@@ -6,10 +6,14 @@ import WhyChoosePathways from "../ui/WhyChoosePathways";
 import WhatOurStudentSay from "../ui/WhatOurStudentSay";
 import ReadyToBeginJourney from "../ui/ReadyToBeginJourney";
 import Footer from "../ui/Footer";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <main className="w-full min-h-screen ">
+    <main className="w-full min-h-screen mx-auto ">
       {/* Navbar */}
       <div>
         <Navbar />

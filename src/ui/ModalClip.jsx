@@ -8,6 +8,7 @@ import { useOutsideClick } from "../hook/useOutsideClick";
 export default function ModalClip() {
 	//Extracting data object from useModalClip Hook in the OpenModalContext
 	const { closeModal, isOpenModal } = useModalClip();
+	
 	//The useOutsideClick custom hook is called with closeModal
 	const ref = useOutsideClick(closeModal);
 

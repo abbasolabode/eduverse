@@ -5,23 +5,30 @@ import Footer from "../../ui/Footer";
 import { useForm } from "react-hook-form";
 import { useLoginUser } from "../../hook/useLoginUser";
 
+
 export default function StudentLoginForm() {
 	//Destructured values from useForm
-	const {handleSubmit, register, formState, reset } = useForm();
-	const { errors } = formState;//Extracting the errors from the formState
+	const { handleSubmit, register, formState, reset } = useForm();
+	const { errors } = formState; //Extracting the errors from the formState
+    
+
 
 	//Values from custom hook
-	const { login, isLoading } = useLoginUser();
+	const { login, isPending } = useLoginUser();
 
-	const onSubmit = function (data) {
+	//The function responsible for calling the mutation function
+	const onSubmit = function (formData) {
+		console.log(formData);
+		if (!formData) return;
 		//Determine if the user is a student
 		const userType = "student";
 		//calling the mutation function
-		login({...data, userType },{onSettled: () => reset() })//Resetting the states back to their initial values either when the mutation is successful or not
+		login({ ...formData, userType }, { onSettled: () => reset() }); //Resetting the states back to their initial values either when the mutation is successful or not
 	};
 
 	return (
 		<div className="w-full min-h-screen flex flex-col justify-center">
+			
 			<div className="fixed w-full z-50">
 				<Navbar />
 			</div>
@@ -39,7 +46,7 @@ export default function StudentLoginForm() {
 						Sign in to your campus Pathways account
 					</p>
 				</div>
-               {/* Actual form fields */}
+				{/* Actual form fields */}
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className="sm:min-w-[28rem] min-h-[34rem] min-w-full rounded-[0.8rem] flex flex-col items-center bg-white/80 backdrop-blur-sm shadow-xl border-0 md:min-w-[28rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem]"
@@ -92,7 +99,7 @@ export default function StudentLoginForm() {
 							</label>
 							<input
 								id="email"
-								disabled={isLoading}
+								disabled={formState.isSubmitting || isPending}
 								{...register("email", {
 									required: "This field is required",
 									pattern: {
@@ -116,7 +123,7 @@ export default function StudentLoginForm() {
 							</label>
 							<input
 								id="password"
-								disabled={isLoading}
+								disabled={formState.isSubmitting || isPending}
 								{...register("password", {
 									required: "This field is required",
 								})}
@@ -131,9 +138,11 @@ export default function StudentLoginForm() {
 						</div>
 					</div>
 
-					<div className="sm:min-w-[23rem] min-h-[1.5rem] md:mt-[-2rem]">
+					<div className="sm:min-w-[23rem] min-h-[1.5rem] md:mt-[-2rem] pt-5">
 						<button className="sm:min-w-full min-h-[1.5rem] sm:pr-[1rem] rounded-lg sm:pl-[1rem] sm:pt-[0.5rem] sm:pb-[0.5rem] font-lato font-medium text-sm bg-gradient-to-r from-blue-600 to-purple-600  text-white outline-none ">
-							{!isLoading ? "Sign in as Student" : "Signing in Progress.."}
+							{formState?.isSubmitting || isPending
+								? "Signing in Progress..."
+								: "Sign in as Student"}
 						</button>
 					</div>
 					<div>

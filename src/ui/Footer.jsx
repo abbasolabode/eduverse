@@ -139,22 +139,21 @@ export default function Footer() {
 	}
 
 	return (
-		<footer className="w-full max-w-[40rem] min-h-[76.84375rem] 
-		 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 md:max-w-full overflow-hidden">
-			<div className="sm:w-[37rem] min-h-[49.34rem] sm:pt-[4rem] sm:pb-[4rem] md:grid md:grid-cols-2 mx-auto md:gap-[10rem] container md:max-w-[45rem] md:min-h-[27rem]">
+		<footer className="w-full max-w-[40rem] min-h-[76.84375rem] bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 md:max-w-full overflow-hidden lg:w-[64rem] lg:min-h-[38rem] ">
+			<div className="sm:w-[37rem] min-h-[49.34rem] sm:pt-[4rem] sm:pb-[4rem] md:grid md:grid-cols-2 mx-auto md:gap-[10rem] md:max-w-[45rem] md:min-h-[27rem] lg:min-w-[60rem] lg:min-h-[12.75rem] lg:grid lg:grid-cols-4 gap-4	lg:pt-[4rem] lg:pb-[4rem] md:justify-start													">
 				{/* Campus Pathways */}
-				<div className="sm:w-[37rem] min-h-[15.28rem] md:max-w-[21.5rem] md:min-h-[12.25rem]">
+				<div className="sm:w-[37rem] min-h-[15.28rem] md:max-w-[21.5rem] md:min-h-[12.25rem] lg:min-w-[13.5rem] lg:min-h-[12.76rem]">
 					<div className="w-full min-h-full flex flex-col gap-7 md:max-w-[21.5rem] md:min-h-[12.25rem]">
 						{/* Logo component */}
 						<Logo footerLogoStyle="text-blue-500 min-h-[1.75rem]" />
-						<p className="sm:w-full sm:min-h-[2.84375rem] text-[#D1D5DB] font-lato sm:pt-[1rem] md:max-w-[21.5rem] md:min-h-[4.265rem]">
+						<p className="sm:w-full sm:min-h-[2.84375rem] text-[#D1D5DB] font-lato sm:pt-[1rem] md:max-w-[21.5rem] md:min-h-[4.265rem] lg:w-[13.5rem]">
 							Empowering students to achieve their academic dreams through
 							innovative programs and exceptional education.
 						</p>
 
 						{/* Social Icons */}
 						<span className="flex gap-8 ">
-							{socialIcons.map((item, _) => {
+							{socialIcons.map((item) => {
 								return <Link key={item.id}>{item.socialIcon}</Link>;
 							})}
 						</span>
@@ -162,20 +161,22 @@ export default function Footer() {
 				</div>
 
 				{/* Quick Links */}
-				<div className="sm:w-[37rem] min-h-[12.25rem] flex flex-col gap-5">
-					<h3 className="min-h-[1.75rem] text-[1.125rem] font-semibold text-[#60A5FA]">
+				<div className="sm:w-[37rem] min-h-[12.25rem] flex flex-col gap-5 lg:w-[13.5rem] lg:min-h-[12.75rem] lg:justify-center">
+					<h3 className="min-h-[1.75rem] text-[1.125rem] font-semibold text-[#60A5FA] lg:w-[13.5rem]">
 						Quick Links
 					</h3>
 
 					<nav className="sm:w-[37rem] min-h-[9.5rem] sm:p-2">
 						<ul className="flex flex-col gap-4 text-[#D1D5D8]">
-							{quickLinks.map((item, _) => {
+							{quickLinks.map((item) => {
 								return (
 									<li
 										key={item.id}
 										className="font-lato hover:underline w-[7.3125rem] min-h-[1.15625rem] "
 									>
-										<Link to={item.url}>{item.title}</Link>
+										<Link to={item.url} className="lg:text-[0.875rem]">
+											{item.title}
+										</Link>
 									</li>
 								);
 							})}
@@ -184,20 +185,20 @@ export default function Footer() {
 				</div>
 
 				{/*Academic Programs */}
-				<div className="sm:w-[37rem] min-h-[12.75rem] flex flex-col gap-5 mt-5">
+				<div className="sm:w-[37rem] min-h-[12.75rem] flex flex-col gap-5 mt-5 lg:w-[13.5rem]">
 					<h3 className="sm:w-full min-h-[1.75rem] font-semibold text-[1.125rem] text-[#60A5FA] ">
 						Academic Programs
 					</h3>
 
 					<nav className="sm:w-[37rem] min-h-[12.75rem]">
 						<ul className="flex flex-col gap-4 sm:w-[37rem] font-lato text-[#D1D5D8]">
-							{programs.map((item, _) => {
+							{programs.map((item) => {
 								return (
 									<li
 										key={item.id}
 										className="hover:underline sm:w-[37rem] min-h-[1.25rem]"
 									>
-										<Link>{item.course}</Link>
+										<Link className="lg:text-[0.875rem]">{item.course}</Link>
 									</li>
 								);
 							})}
@@ -206,7 +207,7 @@ export default function Footer() {
 				</div>
 
 				{/* Contact Us */}
-				<div className="sm:w-[37rem] min-h-[7.25rem] flex flex-col gap-3 mt-5">
+				<div className="sm:w-[37rem] min-h-[7.25rem] flex flex-col gap-3 mt-5 lg:flex lg:w-[13.5rem] lg:relative lg:right-[3.5rem]">
 					<h3 className="sm:w-full min-h-[1.75rem] font-semibold text-[1.125rem] text-[#60A5FA] ">
 						Contact Us
 					</h3>
@@ -234,7 +235,7 @@ export default function Footer() {
 			</div>
 
 			{/* Horizontal rule */}
-			<hr className="sm:w-[37rem] border text-[#D1D5D8] opacity-30 md:max-w-[45rem] mx-auto  " />
+			<hr className="sm:w-[37rem] border text-[#D1D5D8] opacity-30 md:max-w-[45rem] mx-auto lg:min-w-[60rem]  " />
 
 			{/* Stay Updated - input form for only email */}
 			<div className="sm:w-[37rem] sm:min-h-[12.9375rem] flex flex-col gap-5 items-center md:items-center md:justify-center mx-auto md:max-w-[45rem] md:text-center ">
@@ -261,7 +262,7 @@ export default function Footer() {
 							className="sm:w-[20.228rem] min-h-9 focus:outline-none bg-white/10 border-white/20 focus:border-blue-400 placeholder:-gray-400 text-white  sm:pt-[0.5rem] sm:pb-[0.8rem] sm:pl-[1rem] rounded-md sm:pr-[1rem] ring-0 outline-0 flex-1 transparent-30 opacity-60"
 							placeholder="Enter your email"
 							{...register("email", {
-								 pattern: {
+								pattern: {
 									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
 									message: "Invalid email address",
 								},
@@ -275,14 +276,14 @@ export default function Footer() {
 						disabled={isStayingUpdated}
 						className="sm:w-[7.271875rem]  hover:bg-blue-600 sm:min-h-[2.625rem] rounded-md font-lato items-center flex justify-center font-poppins bg-gradient-to-r from-blue-600 to-purple-600 text-white "
 					>
-						Subscribe
+						{isStayingUpdated ? "Subscribing..." : "Subscribe"}
 					</button>
 				</form>
 			</div>
 
 			{/* Horizontal rule */}
-			<hr className="sm:w-[37rem] border text-[#D1D5D8] opacity-30  md:max-w-[45rem] mx-auto  " />
-			<div className="sm:w-[37rem] sm:min-h-[10.5rem] sm:pt-[1.5rem] sm:pb-[1.5rem] flex flex-col gap-5 items-center md:mx-auto ">
+			<hr className="sm:w-[37rem] border text-[#D1D5D8] opacity-30  md:max-w-[45rem] mx-auto lg:min-w-[60rem]   " />
+			<div className="sm:w-[37rem] sm:min-h-[10.5rem] sm:pt-[1.5rem] sm:pb-[1.5rem] flex flex-col gap-5 items-center md:mx-auto  lg:min-w-[60rem] lg:flex-row lg:items-center lg:justify-between ">
 				{/* All right reserved */}
 				<p className="text-[#D1D5D8] font-lato ">
 					@2024 Campus Pathways University. All right reserved

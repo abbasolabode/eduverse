@@ -6,42 +6,18 @@ import { useForm } from "react-hook-form";
 import { useSignup } from "../../hook/useSignUp";
 
 export default function LecturerSignupForm() {
-	const { signup, isSigningUp } = useSignup();
+	const { signup, isPending } = useSignup();
 
-	const {
-		handleSubmit,
-		reset,
-		register,
-		getValues,
-		formState: { errors },
-	} = useForm();
+	//The form hook responsible for managing the form
+	const {handleSubmit, reset, register, getValues, formState} = useForm();
+   
+	//Extracting the errors from the formState
+    const {errors} = formState;
 
 	//The function that's responsible for calling the API function with object
-	function onSubmit({
-		firstName,
-		lastName,
-		email,
-		employeeId,
-		department,
-		password,
-	}) {
-		//Determine if the user is a lecturer
-		const userType = "lecturer";
-
-		signup(
-			{
-				firstName,
-				lastName,
-				email,
-				employeeId,
-				department,
-				password,
-				userType,
-			},
-			{
-				onSettled: () => reset(),
-			}
-		);
+	function onSubmit(formData) {
+		const userType = "lecturer"
+		signup({...formData, userType},{onSettled: () => reset()});
 	}
 
 	return (
@@ -98,7 +74,7 @@ export default function LecturerSignupForm() {
 						{/* Lecturer Link */}
 						<div className="bg-indigo-400/50 min-w-full sm:min-w-[14.25rem] sm:min-h-[1.25rem] sm:pt-[0.375rem] sm:pb-[0.375rem] sm:pl-[0.75rem] sm:pr-[0.75rem] rounded-sm focus-visible:outline-none h-10 hover:bg-blue-600 active:bg-blue-700 active:scale-95 active:shadow-inner active:shadow-blue-800/30 transition-all duration-100 ">
 							<Link
-								to="/lecturersignup"
+								to="/lecturerSignup"
 								className="min-w-full sm:min-w-[14.25rem] text-center sm:min-h-[1.25rem] flex items-center justify-center  "
 							>
 								<div className="flex justify-center items-center gap-2">
@@ -124,7 +100,7 @@ export default function LecturerSignupForm() {
 									type="text"
 									id="firstName"
 									placeholder="John"
-									disabled={isSigningUp}
+									disabled={formState.isSubmitting || isPending}
 									{...register("firstName", {
 										required: "This field is required",
 									})}
@@ -147,7 +123,7 @@ export default function LecturerSignupForm() {
 									type="text"
 									id="lastName"
 									placeholder="Doe"
-									disabled={isSigningUp}
+									disabled={formState.isSubmitting || isPending}
 									{...register("lastName", {
 										required: "This field is required",
 									})}
@@ -170,7 +146,7 @@ export default function LecturerSignupForm() {
 							<input
 								type="text"
 								id="email"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								placeholder="jane.smith@campuspathways.edu"
 								{...register("email", {
 									required: "This field is required",
@@ -198,7 +174,7 @@ export default function LecturerSignupForm() {
 								type="text"
 								id="employeeId"
 								placeholder="EMP2024001"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("employeeId", {
 									required: "This field is required",
 								})}
@@ -222,7 +198,7 @@ export default function LecturerSignupForm() {
 								type="text"
 								id="department"
 								placeholder="Computer Science"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("department", {
 									required: "This field is required",
 								})}
@@ -244,7 +220,7 @@ export default function LecturerSignupForm() {
 								type="password"
 								id="password"
 								autoComplete="password"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("password", {
 									required: "This field is required",
 									minLength: {
@@ -270,7 +246,7 @@ export default function LecturerSignupForm() {
 								type="password"
 								autoComplete="password"
 								id="confirmPassword"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("confirmPassword", {
 									required: "This field is required",
 									validate: (value) =>
@@ -286,12 +262,12 @@ export default function LecturerSignupForm() {
 						{/* Button */}
 						<div className="min-w-full sm:min-w-[29rem] min-h-[4.5rem] sm:pl-[2.5rem] sm:pr-[0.75rem] sm:pt-[0.5rem] sm:pb-[0.5rem]">
 							<button
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								className="min-w-full sm:min-w-full min-h-[2.5rem] border rounded-md font-lato text-white outline-none text-sm bg-gradient-to-r from-blue-600 to-green-600 "
 							>
-								{!isSigningUp
-									? "Create Student Account"
-									: "Creating account... please wait"}
+								{formState.isSubmitting || isPending
+									? "Creating account... please wait"
+									: "Create Student Account "}
 							</button>
 						</div>
 						<span className="min-w-full sm:min-w-[29rem] text-center font-lato font-light text-sm mt-[-1rem]">

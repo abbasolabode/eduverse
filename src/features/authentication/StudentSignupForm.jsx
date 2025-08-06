@@ -7,28 +7,36 @@ import { useSignup } from "../../hook/useSignUp";
 
 
 export default function StudentSignupForm() {
-	const { signup, isSigningUp } = useSignup();
 
-	const {
-		handleSubmit,
-		reset,
-		register,
-		getValues,
-		formState: { errors },
-	} = useForm();
+	//Destructured values from useForm
+	//This hook provides methods to handle form submission, validation, and state management
+	//It returns an object with methods like handleSubmit, register, reset, and formState
+	//These methods are used to manage the form state and handle user input
+	//handleSubmit is used to handle form submission
+	const { handleSubmit, reset, register, getValues, formState } = useForm();
+	 
+	//Extracting errors from formState;
+	const {errors} = formState;// formState contains the state of the form, including validation errors
 
+	//Destructured values from the useSignup custom hook
+	const { signup, isPending } = useSignup();
 
-	function onSubmit({ firstName, lastName, email, studentId, dob, password }) {
+	//The function responsible for calling the mutation function with the data passed from the handleSubmit function
+	//Destructured the data passed to onSubmit function
+	function onSubmit( formData ) {
 		//Determine if the user is a student
 		const userType = "student";
-		
-		signup({ firstName, lastName, email, studentId, dob, password, userType },
+		//Call the signup function from the useSignup hook with the data and userType
+		//The signup function will send the data to the API and handle the response
+		signup({...formData, userType},
 			{
-				onSettled: () => reset(),
+				onSettled: () => reset(),// Reset the form after submission
 			}
 		);
 	}
 
+  //Return the JSX for the Student Signup Form
+  //This form allows students to create an account by providing their details
 	return (
 		<div className="min-w-full sm:min-w-full  min-h-screen border flex flex-col bg-gradient-to-br from-green-900/80 via-blue-900/70 to-purple-900/80 ">
 			<div className="fixed w-full z-50">
@@ -83,7 +91,7 @@ export default function StudentSignupForm() {
 						{/* Lecturer Link */}
 						<div className="bg-indigo-400/50 min-w-full sm:min-w-[14.25rem] sm:min-h-[1.25rem] sm:pt-[0.375rem] sm:pb-[0.375rem] sm:pl-[0.75rem] sm:pr-[0.75rem] rounded-sm focus-visible:outline-none h-10 hover:bg-blue-600 active:bg-blue-700 active:scale-95 active:shadow-inner active:shadow-blue-800/30 transition-all duration-100 ">
 							<Link
-								to="/lecturersignup"
+								to="/lecturerSignup"
 								className="min-w-full sm:min-w-[14.25rem] text-center sm:min-h-[1.25rem] flex items-center justify-center  "
 							>
 								<div className="flex justify-center items-center gap-2">
@@ -109,7 +117,9 @@ export default function StudentSignupForm() {
 									type="text"
 									placeholder="John"
 									id="firstName"
-									disabled={isSigningUp}
+									// This input field is disabled when the form is submitting or when the user is signing up
+									disabled={formState.isSubmitting || isPending}
+									//react-hook-form's register function is used to register the input field
 									{...register("firstName", {
 										required: "This field is required",
 									})}
@@ -132,7 +142,7 @@ export default function StudentSignupForm() {
 									type="text"
 									placeholder="Doe"
 									id="lastName"
-									disabled={isSigningUp}
+									disabled={formState.isSubmitting || isPending}
 									{...register("lastName", {
 										required: "This field is required",
 									})}
@@ -156,7 +166,7 @@ export default function StudentSignupForm() {
 								type="text"
 								placeholder="John.doe@email.com"
 								id="email"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("email", {
 									required: "This field is required",
 									pattern: {
@@ -183,7 +193,7 @@ export default function StudentSignupForm() {
 								type="text"
 								placeholder="STU2024001"
 								id="studentId"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("studentId", {
 									required: "This field is required",
 								})}
@@ -205,7 +215,7 @@ export default function StudentSignupForm() {
 							<input
 								type="date"
 								id="dob"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("dob", {
 									required: "This field is required",
 								})}
@@ -228,12 +238,12 @@ export default function StudentSignupForm() {
 								placeholder="Create a strong password"
 								autoComplete="password"
 								id="password"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								{...register("password", {
 									required: "This field is required",
 									minLength: {
 										value: 6,
-										message: "Password needs a minimum of 8 characters",
+										message: "Password needs a minimum of 6 characters",
 									},
 								})}
 								className="min-w-full sm:min-w-full min-h-[2.5rem] font-lato border rounded-md outline-none bg-transparent focus:ring-black focus:ring-offset-4 placeholder:pl-3"
@@ -255,9 +265,12 @@ export default function StudentSignupForm() {
 								placeholder="Confirm your password"
 								autoComplete="password"
 								id="confirmPassword"
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
+								//react-hook-form's register function is used to register the input field
+								// This input field is used to confirm the password entered in the password field
 								{...register("confirmPassword", {
 									required: "This field is required",
+									// This validation checks if the confirmPassword matches the password field
 									validate: (value) =>
 										value === getValues().password || "Passwords need to match",
 								})}
@@ -271,12 +284,12 @@ export default function StudentSignupForm() {
 						{/* Button */}
 						<div className="min-w-full sm:min-w-[29rem] min-h-[4.5rem] sm:pl-[2.5rem] sm:pr-[0.75rem] sm:pt-[0.5rem] sm:pb-[0.5rem]  ">
 							<button
-								disabled={isSigningUp}
+								disabled={formState.isSubmitting || isPending}
 								className="min-w-full sm:min-w-full min-h-[2.5rem] border rounded-md font-lato  bg-gradient-to-r from-blue-600 to-purple-600  text-white outline-none text-sm"
 							>
-								{!isSigningUp
-									? "Create Student Account"
-									: "Creating account... please wait"}
+								{isPending || formState.isSubmitting
+									? "Creating account... please wait"
+									: "Create Student Account"}
 							</button>
 						</div>
 						<span className="min-w-full sm:min-w-[29rem] text-center font-lato font-light text-sm mt-[-1rem]">

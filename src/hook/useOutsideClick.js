@@ -3,11 +3,11 @@ import { useEffect, useRef } from "react";
 export function useOutsideClick(closeModal, listenCapturing = true) {
 	//The useRef hook is used to create a mutable object that persists for the full lifetime of the component.
 	const ref = useRef();
-
+   
 	useEffect(
 		function () {
 			function handleClick(e) {
-				//Checks if the selected element exists and it does not contain the clicked element then handler function is invoked
+				//Checks if the selected element exists and it does not contain the clicked element then closeModal function is invoked
 				if (ref.current && !ref.current.contains(e.target)) {
 					closeModal(); //close function
 				}

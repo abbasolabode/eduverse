@@ -1,22 +1,34 @@
 import { FaBook, FaGraduationCap, FaUser } from "react-icons/fa6";
-import Navbar from "../../ui/Navbar";
-import { Link } from "react-router-dom";
-import Footer from "../../ui/Footer";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useLoginUser } from "../../hook/useLoginUser";
+import Navbar from "../../ui/Navbar";
+import Footer from "../../ui/Footer";
 
-export default function StudentLoginForm() {
+//Lecturer Login Form Component
+//This component handles the login functionality for lecturers
+//It uses the useForm hook from react-hook-form for form handling and validation
+export default function LecturerLoginForm() {
 	//Destructured values from useForm
-	const {handleSubmit, register, reset, formState } = useForm();
-	const { login, isLoading } = useLoginUser();//Extracting the errors from the formState
+	const { handleSubmit, register, reset, formState } = useForm();
 
-	//Values from custom hook
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	//Custom hook
+	const { login, isPending } = useLoginUser();
+
+	//Extracting the destructured value from formState
 	const { errors } = formState;
 
-	const onSubmit = function (data) {
+	//Function responsible for calling the mutation function
+	const onSubmit = function (formData) {
+		if (!formData) return;
 		//Determine if the user is a lecturer
-		const userType = "student";
-		login({ ...data, userType }, { onSettled: () => reset()});
+		const userType = "lecturer";
+		login({ ...formData, userType }, { onSettled: () => reset() });
 	};
 
 	return (
@@ -38,7 +50,7 @@ export default function StudentLoginForm() {
 						Sign in to your campus Pathways account
 					</p>
 				</div>
-                
+
 				{/* Form input fields */}
 				<form
 					onSubmit={handleSubmit(onSubmit)}
@@ -91,7 +103,7 @@ export default function StudentLoginForm() {
 							</label>
 							<input
 								id="email"
-								disabled={isLoading}
+								disabled={formState.isSubmitting || isPending}
 								{...register("email", {
 									required: "This field is required",
 									pattern: {
@@ -115,14 +127,14 @@ export default function StudentLoginForm() {
 							</label>
 							<input
 								id="password"
-								disabled={isLoading}
+								disabled={formState.isSubmitting || isPending}
 								{...register("password", {
 									required: "This field is required",
 								})}
 								type="password"
 								autoComplete="password"
 								placeholder="Enter your password"
-								className="border pt-[0.5rem] pb-[0.5rem] pl-[0.75rem] pr-[0.75rem] rounded-md outline-0 bg-gray-100"
+								className="border pt-[0.5rem] pb-[0.5rem]  pl-[0.75rem] pr-[0.75rem] rounded-md outline-0 bg-gray-100"
 							/>
 							<small className="font-lato text-red-500">
 								{errors && errors?.password?.message}
@@ -130,14 +142,19 @@ export default function StudentLoginForm() {
 						</div>
 					</div>
 
-					<div className="sm:w-[23rem] min-h-[1.5rem] md:mt-[-2rem]">
-						<button disabled={formState.isSubmitting || isLoading} className="sm:min-w-full min-h-[1.5rem] sm:pr-[1rem] rounded-lg sm:pl-[1rem] sm:pt-[0.5rem] sm:pb-[0.5rem] font-lato font-medium text-sm bg-gradient-to-r from-blue-600 to-green-600  text-white outline-none ">
-							{ !formState.isSubmitting || !isLoading ? "Sign in as Lecturer" : "Signing in progress..."}
+					<div className="sm:w-[23rem] min-h-[1.5rem] md:mt-[-2rem] pt-5">
+						<button
+							disabled={formState.isSubmitting || isPending}
+							className="sm:min-w-full min-h-[1.5rem] sm:pr-[1rem] rounded-lg sm:pl-[1rem] sm:pt-[0.5rem] sm:pb-[0.5rem] font-lato font-medium text-sm bg-gradient-to-r from-blue-600 to-green-600  text-white outline-none "
+						>
+							{formState.isSubmitting || isPending
+								? "Signing in progress..."
+								: "Login as Lecturer"}
 						</button>
 					</div>
 					<div>
 						<p className="font-lato mt-1 font-light">
-							Don't have an account?{" "}
+							Don't have an account?
 							<Link
 								to="/signup"
 								className="text-blue-500 hover:underline hover:underline-offset-4 font-bold"

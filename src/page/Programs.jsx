@@ -3,7 +3,7 @@ import AcademicPrograms from '../ui/AcademicPrograms'
 
 export default function Programs() {
   return (
-    <div>
+    <div >
       <AcademicPrograms/>
     </div>
   )

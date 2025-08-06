@@ -33,8 +33,8 @@ const roundedSectionIcons = [
 
 export default function RoundedSection() {
     return (
-        <main className="w-full max-w-full sm:min-h-[20.5rem] flex justify-center items-center container mx-auto sm:py-16 bg-gradient-to-r from-green-50 to-blue-50">
-            <div className="grid sm:grid-cols-2 gap-8 justify-items-center max-w-[40rem]">
+        <main className="w-full max-w-full sm:min-h-[20.5rem] flex justify-center items-center container mx-auto sm:py-16 bg-gradient-to-r from-green-50 to-blue-50 lg:min-w-[64rem]">
+            <div className="grid sm:grid-cols-2 gap-8 justify-items-center max-w-[40rem] lg:flex lg:justify-between lg:min-w-[60rem] lg:min-h-[9.25rem]">
                 {roundedSectionIcons.map((item) => (
                     <div
                         key={item.id}
@@ -47,7 +47,7 @@ export default function RoundedSection() {
                         </div>
 
                         <div className="w-full text-center flex flex-col gap-2 ">
-                            <h2 className={`w-full sm:pl-4 ${item.id === 1 ? "sm:pl-[3.8rem]" : ""} font-semibold text-3xl text-[#111827]`}>
+                            <h2 className={`w-full sm:pl-4 ${item.id === 1 ? "sm:pl-[3.8rem]" : ""} font-semibold text-3xl text-[#111827] lg:font-bold`}>
                                 {item.number}
                             </h2>
                             <p className="w-full sm:pl-[3rem] text-[#4B5563]">

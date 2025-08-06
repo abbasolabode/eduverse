@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaLocationDot } from "react-icons/fa6";
 import {
 	MdOutlineKeyboardArrowLeft,
 	MdOutlineKeyboardArrowRight,
@@ -67,7 +66,7 @@ export default function WhatOurStudentSay() {
 	return (
 		<div className="max-w-[40rem] sm:h-[30rem] max-auto md:max-w-full md:min-h-[24.5rem] items-center flex flex-col gap-14 bd-gradient-to-r from-cyan-200 to-blue-100">
 			<div className="max-w-[37.4rem] sm:min-h-[7rem]  md:max-w-full flex flex-col justify-center items-center gap-4 ">
-				<h2 className="sm:w-full text-[2.25rem] font-semibold sm:pt-[2rem] font-lato text-[#111827] min-h-[2.5rem] text-center">
+				<h2 className="sm:w-full text-[2.25rem] font-semibold sm:pt-[2rem] font-lato text-[#111827] min-h-[2.5rem] text-center lg:font-bold">
 					What Our Students Say
 				</h2>
 				<p className="text-[#4B5563] max-w-[37.4rem] md:max-w-[45rem]  text-[1.25rem] text-center">
@@ -80,7 +79,7 @@ export default function WhatOurStudentSay() {
 				{/* Left Arrow Button */}
 				<button
 					onClick={goToPrevious}
-					className="absolute left-4 sm:left-[-1rem]  z-50 md:left-1 lg:left-12 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/40 dark:hover:bg-white/40 text-white dark:text-zinc-200 p-2 rounded-full shadow-md hover:scale-110 transition-all duration-300"
+					className="absolute left-4 sm:left-[-1rem]  z-10 md:left-1 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/40 dark:hover:bg-white/40 text-white dark:text-zinc-200 p-2 rounded-full shadow-md hover:scale-110 transition-all duration-300 lg:left-1"
 					aria-label="Previous slide"
 				>
 					<MdOutlineKeyboardArrowLeft size={24} />
@@ -113,7 +112,7 @@ export default function WhatOurStudentSay() {
 				{/* Right Arrow Button */}
 				<button
 					onClick={goToNext}
-					className="absolute right-4 bg-black/30 sm:right-[-1rem] z-50 md:right-1 lg:right-12 top-1/2 transform -translate-y-1/2 hover:bg-black/40 dark:hover:bg-white/40 text-white dark:text-zinc-200 p-2 rounded-full shadow-md hover:scale-110 transition-all duration-300"
+					className="absolute right-4 bg-black/30 sm:right-[-1rem] z-10 md:right-1 lg:right-1 top-1/2 transform -translate-y-1/2 hover:bg-black/40 dark:hover:bg-white/40 text-white dark:text-zinc-200 p-2 rounded-full shadow-md hover:scale-110 transition-all duration-300 "
 					aria-label="Next slide"
 				>
 					<MdOutlineKeyboardArrowRight size={24} />
