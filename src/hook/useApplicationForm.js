@@ -6,8 +6,8 @@ export function useApplicationForm() {
 	const queryClient = useQueryClient(); // Getting the query client for managing cache
 	const { mutate: applyForm, isPending } = useMutation({
 		mutationFn: (formData)=> {
-            if(!formData.fileResume || !formData.Transcript) return;
-			 return getApplicationForm(formData);
+            if(!formData.fileResume || !formData.fileTranscript) return;
+			return getApplicationForm(formData);
 		},
 		onSuccess: () => {
 			//The toast is called if there's a successful mutation

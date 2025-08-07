@@ -17,11 +17,7 @@ export async function loginUser({ email, password }) {
 	// 2. Check for errors
 	// If there's an error, throw it to be handled by the calling function
 	if (error) {
-		throw new Error(
-			error.message === "Invalid login credentials"
-				? "Invalid email or password"
-				: "Invalid login credentials"
-		);
+		throw new Error(error.message === "Invalid login credentials" ? "Invalid login credentials" : "Invalid email or password");
 	}
 
 	return data;

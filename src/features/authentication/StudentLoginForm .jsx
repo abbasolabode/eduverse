@@ -11,8 +11,6 @@ export default function StudentLoginForm() {
 	const { handleSubmit, register, formState, reset } = useForm();
 	const { errors } = formState; //Extracting the errors from the formState
     
-
-
 	//Values from custom hook
 	const { login, isPending } = useLoginUser();
 
@@ -46,6 +44,7 @@ export default function StudentLoginForm() {
 						Sign in to your campus Pathways account
 					</p>
 				</div>
+				
 				{/* Actual form fields */}
 				<form
 					onSubmit={handleSubmit(onSubmit)}

@@ -7,8 +7,7 @@ export default function Students() {
   console.log(studentList);
   
   const {biodata} = useBiodata();
-  console.log(biodata)
-
+  
   return (
 		<div className="min-h-[38.5rem] min-w-full md:min-w-[45rem] md:pl-[1.5rem] bg-white rounded-md shadow-md md:pr-[1.5rem] md:pt-[2rem] md:pb-[2rem]">
 			<div className="min-w-full md:min-w-full flex flex-col gap-5">

@@ -4,9 +4,9 @@ import Spinner from "./Spinner";
 
 export default function Assignments() {
 	const {data: assignments = [], isLoading} = useAssignments();
-	console.log(assignments
+	console.log(assignments)
 
-	)
+	
 
 	if(isLoading) return <Spinner  loadingAssignment="Please wait while updating your assignments"/>
 	return (

@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/apiAuth";
 
-
 export function useLoginUser() {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
@@ -23,15 +22,15 @@ export function useLoginUser() {
 			// 2. Show success toast
 			toast.success("Login successful");
 			// 3. Redirect based on userType
-            // If userType is "student", redirect to student dashboard, otherwise redirect to lecturer dashboard
+			// If userType is "student", redirect to student dashboard, otherwise redirect to lecturer dashboard
 			// The variables object contains the userType we passed in the onSubmit function
-			const redirectPath = variables?.userType === "student" ? `/${variables.userType}Dashboard` : `/${variables.userType}Dashboard`;
+			const redirectPath = variables?.userType === "student" ? "/studentDashboard" : "/lecturerDashboard";
 			// 4. Navigate to the appropriate dashboard
 			// This will replace the current entry in the history stack so that the user cannot go back to the login page using the back button
-			navigate(redirectPath, { replace: true })
+			navigate(redirectPath, { replace: true });
 		},
 
-		//If there's error while sending data to the API/server
+		//If there's error while sending data to the API/remote server
 		onError: (err) => {
 			toast.error(err.message || "Login failed. Please try again!");
 		},

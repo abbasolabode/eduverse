@@ -3,7 +3,7 @@ import supabase, { supabaseUrl } from "./supabase";
 
 
 export async function getApplicationForm(formData) {
-  console.log(formData)
+
   // 1. Validate file
   // Check if they're proper File objects
   if (!(formData.fileResume instanceof File) || !(formData.fileTranscript instanceof File)) {
@@ -16,15 +16,13 @@ export async function getApplicationForm(formData) {
   const fileResumeName = `${timestamp}-${formData.fileResume.name.replace(/\//g, '')}`;
 
 
-  console.log(formData.fileResume, formData.fileTranscript)
-
   // 3. Upload files separately with proper configuration
   // Upload Resume
   const { error: resumeUploadError } = await supabase.storage
     .from('applicationformfiles')
     .upload(fileResumeName, formData.fileResume, {
-      contentType: formData.fileResume.type,
-      upsert: false
+      contentType: formData.fileResume.type, // `contentType`: Sets the MIME type of the file (e.g., 'application/pdf').
+      upsert: false // Prevents overwriting if a file with the same name exists.
     });
 
   if (resumeUploadError) {
@@ -36,9 +34,10 @@ export async function getApplicationForm(formData) {
   const { error: transcriptUploadError } = await supabase.storage
     .from('applicationformfiles')
     .upload(fileTranscriptName, formData.fileTranscript, {
-      contentType: formData.fileTranscript.type,
-      upsert: false
+      contentType: formData.fileTranscript.type, // `contentType`: Sets the MIME type of the file (e.g., 'application/pdf').
+      upsert: false  // Prevents overwriting if a file with the same name exists.
     });
+
 
   if (transcriptUploadError) {
     console.error("Transcript upload error:", transcriptUploadError);
@@ -52,12 +51,7 @@ export async function getApplicationForm(formData) {
   // 5. Prepare data for database insertion (excluding the File objects)
   const { fileResume, fileTranscript, ...restFormData } = formData;
 
-  console.log('Preparing to insert:', {
-  ...restFormData,
-  resume_url: resumeUrl,
-  transcript_url: transcriptUrl
-});
-  
+
   // 6. Save to database
   const { data, error } = await supabase
     .from("applicationForm")
@@ -73,7 +67,6 @@ export async function getApplicationForm(formData) {
     throw new Error(error.message || "Unable to submit your application successfully");
   }
 
-  console.log(data)
 
   return data;
 }

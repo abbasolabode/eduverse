@@ -4,7 +4,7 @@ import Spinner from "./Spinner";
 export default function Courses() {
   const {courses = [], isLoading} = useCourses();
 
-  if(isLoading) return <Spinner loadingCourse="Please wait while we load your academic courses" />;
+  if(isLoading) return <Spinner loadingCourse="Please wait while loading your academic courses" />;
 
   return (
     <div  className="min-w-full md:min-w-[21.625rem] flex flex-col gap-5 md:min-h-[13.75rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] ">

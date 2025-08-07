@@ -15,7 +15,7 @@ export function useSignup(){
         toast.success(`You've successfully created an account`);
         //Determine the route/navigation based on the userType i.e the userType can either be "student" or "lecturer"
         //If userType is "student", navigate to studentDashboard, otherwise navigate to lecturerDashboard
-        variables?.userType === "student" ? navigate(`/${variables.userType}Dashboard`, { replace: true }) : navigate(`/${variables.userType}Dashboard`, { replace: true });
+        variables?.userType === "student" ? navigate("/studentDashboard", { replace: true }) : navigate("/lecturerDashboard", { replace: true });
        },
        onError: (error)=> {
          toast.error(error.message || "There's an error while creating an account");

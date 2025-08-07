@@ -40,23 +40,26 @@ const studentDashboardLinks = [
 	},
 ];
 
-
 export default function StudentDashboard() {
 	useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+		window.scrollTo(0, 0);
+	}, []);
 
-	const {biodata = []} = useBiodata();
+	const { biodata = [] } = useBiodata();
 
 	const { user } = useAuthContext();
 
-	const authenticatedUser = biodata?.find(item => item.email === user.email)
-	console.log(authenticatedUser)
+	const authenticatedUser = biodata?.find((item) => item.email === user.email);
+	console.log(authenticatedUser);
 
-	const fullName = authenticatedUser?.fullName
+	const fullName = authenticatedUser?.fullName;
 	// Split the full name into parts and take the first two initials
-	const initials = fullName?.split(" ").map(name => name.slice(0, 1)).join("").toUpperCase().slice(0, 2);
-
+	const initials = fullName
+		?.split(" ")
+		.map((name) => name.slice(0, 1))
+		.join("")
+		.toUpperCase()
+		.slice(0, 2);
 
 	return (
 		<>
@@ -95,7 +98,7 @@ export default function StudentDashboard() {
 								<div className="min-w-full md:min-w-[10rem] md:min-h-[2.5rem] flex flex-col justify-center">
 									<p className="font-medium font-lato text-[0.875rem] text-[#111827] md:min-w-[9rem]">
 										<span className="font-lato font-semibold text-indigo-500">
-											{authenticatedUser?.fullName || "Student"}!
+											{authenticatedUser?.fullName || "Student"}
 											{/* Display full name */}
 										</span>
 									</p>
@@ -114,7 +117,7 @@ export default function StudentDashboard() {
 
 							{/* Logout button */}
 							<div className="min-w-full md:min-w-[4.55766875rem] md:min-h-[1.5rem]">
-								<LogoutButton/>
+								<LogoutButton />
 							</div>
 						</div>
 					</div>

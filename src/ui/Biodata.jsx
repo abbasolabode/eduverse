@@ -13,11 +13,11 @@ export default function Biodata() {
 	const { user: authenticatedUser = {} } = useAuthContext();
  
 	// Fetch the biodata using the useBiodata hook
-	// This will return the biodata of all the users wihich is an array of objects
+	// This will return the biodata of all the users which is an array of objects
 	const { biodata } = useBiodata();
 
 	// Find the authenticated user in the biodata array
-	// This will match the user email or studentId with the biodata email or studentId
+	// This will match the user email with the biodata email 
 	const authUser = biodata?.find(item => item?.email === authenticatedUser?.email );
 	console.log( authUser)
 

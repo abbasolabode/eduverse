@@ -16,7 +16,7 @@ export default function StudentSignupForm() {
 	const { handleSubmit, reset, register, getValues, formState } = useForm();
 	 
 	//Extracting errors from formState;
-	const {errors} = formState;// formState contains the state of the form, including validation errors
+	const {errors} = formState; // formState contains the state of the form, including validation errors
 
 	//Destructured values from the useSignup custom hook
 	const { signup, isPending } = useSignup();
