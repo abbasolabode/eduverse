@@ -34,9 +34,10 @@ import Assignments from "./ui/Assignments";
 
 //Links for lecturer dashboard
 import MyCourses from "./ui/MyCourses";
-import Students from "./ui/Students";
+import StudentsList from "./ui/StudentsList";
 import StudentsBiodata from "./ui/StudentsBiodata";
 import UploadGrades from "./ui/UploadGrades";
+import AssignmentForm from "./ui/AssignmentForm";
 import Password from "./ui/Password";
 
 const queryClient = new QueryClient({
@@ -82,7 +83,7 @@ function App() {
 										</ProtectedRoute>
 									}
 								>
-									{" "}
+									
 									// Nested routes for student dashboard
 									<Route index element={<Navigate to="bioData" replace />} />
 									<Route path="biodata" element={<Biodata />} />
@@ -103,9 +104,10 @@ function App() {
 									/* Nested routes for lecturer dashboard */
 									<Route index element={<Navigate to="myCourses" replace />} />
 									<Route path="myCourses" element={<MyCourses />} />
-									<Route path="students" element={<Students />} />
+									<Route path="studentsList" element={<StudentsList />} />
 									<Route path="studentsBiodata" element={<StudentsBiodata />} />
 									<Route path="uploadGrades" element={<UploadGrades />} />
+									<Route path="assignmentForm" element={<AssignmentForm />} />
 									<Route path="password" element={<Password />} />
 								</Route>
 								<Route path="*" element={<PageNotFound />} />

@@ -10,6 +10,7 @@ export default function ProtectedRoute({ children }) {
 	// loading the user data, userType, isLoading, and isAuthenticated status
 	const { userType, isAuthenticated, isLoading } = useUser();
 
+
 	// 2. While loading, show a spinner
 	if (isLoading)
 		return (
@@ -38,7 +39,7 @@ export default function ProtectedRoute({ children }) {
 
 	// 5. Otherwise, render the protected content
 	// If the user is authenticated and on the correct path, render the children components
-	if (isAuthenticated) return children;
+	return children;
 }
 
 

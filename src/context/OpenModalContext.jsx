@@ -37,7 +37,7 @@ function useModalClip() {
 	//Check if the context is undefined
 	if (context === undefined)
 		throw new Error(
-			" OpenContactFormContext was used outside of OpenContactFormContext provider"
+			" OpenModalContext was used outside of OpenModalContext provider"
 		);
 
 	return context;

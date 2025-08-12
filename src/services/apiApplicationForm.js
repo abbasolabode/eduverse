@@ -22,7 +22,7 @@ export async function getApplicationForm(formData) {
     .from('applicationformfiles')
     .upload(fileResumeName, formData.fileResume, {
       contentType: formData.fileResume.type, // `contentType`: Sets the MIME type of the file (e.g., 'application/pdf').
-      upsert: false // Prevents overwriting if a file with the same name exists.
+    // upsert: false // Prevents overwriting if a file with the same name exists.
     });
 
   if (resumeUploadError) {
@@ -35,7 +35,7 @@ export async function getApplicationForm(formData) {
     .from('applicationformfiles')
     .upload(fileTranscriptName, formData.fileTranscript, {
       contentType: formData.fileTranscript.type, // `contentType`: Sets the MIME type of the file (e.g., 'application/pdf').
-      upsert: false  // Prevents overwriting if a file with the same name exists.
+     // upsert: false  // Prevents overwriting if a file with the same name exists.
     });
 
 

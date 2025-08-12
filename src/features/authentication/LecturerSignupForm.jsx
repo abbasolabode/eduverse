@@ -16,6 +16,7 @@ export default function LecturerSignupForm() {
 
 	//The function that's responsible for calling the API function with object
 	function onSubmit(formData) {
+		if (!formData) return;
 		const userType = "lecturer"
 		signup({...formData, userType},{onSettled: () => reset()});
 	}
@@ -271,7 +272,7 @@ export default function LecturerSignupForm() {
 							</button>
 						</div>
 						<span className="min-w-full sm:min-w-[29rem] text-center font-lato font-light text-sm mt-[-1rem]">
-							Already have an account{" "}
+							Already have an account?{" "}
 							<Link to="/studentLogin" className="font-semibold text-blue-500">
 								Sign in here
 							</Link>

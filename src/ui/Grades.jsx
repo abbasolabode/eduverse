@@ -1,8 +1,8 @@
 export default function Grades(){
    
     return (
-			<div className="min-w-full md:min-w-[44.875rem] flex flex-col bg-indigo-100 items-center justify-center pl-6 pr-6 pt-8 pb-8 mt-5">
-				<div className="md:min-w-[41.875rem] rounded-lg shadow-lg  bg-white">
+			<div className="min-w-full md:min-w-[44.875rem] flex flex-col bg-indigo-100 items-center justify-center pl-6 pr-6 pt-8 pb-8 sm:min-w-[38rem] sm:pl-[1.5rem] sm:pr-[1.5rem] sm:pb-[1.5rem] sm:pt-[1.5rem] mt-5">
+				<div className="md:min-w-[41.875rem] shadow-lg bg-white sm:w-[37.875rem] rounded-md">
 					<div className=" md:min-w-[41.875rem] md:min-h-[6.125rem] md:pl-6 md:pr-6 md:pt-6 md:pb-6 flex justify-between items-center p-4">
 						<span className="flex flex-col gap-2">
 							<h3 className="text-[1.5rem] text-[#020817] md:min-h-[1.4rem] font-lato font-semibold">

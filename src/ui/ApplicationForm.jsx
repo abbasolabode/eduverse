@@ -5,37 +5,15 @@ import { CiMail } from "react-icons/ci";
 import { GoUpload } from "react-icons/go";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { useRef, useState } from "react";
-import React, {memo} from 'react';
+import { useState } from "react";
+import React, { memo } from "react";
 import { useApplicationForm } from "../hook/useApplicationForm";
 import { useForm, Controller } from "react-hook-form";
 import toast from "react-hot-toast";
 import BackHomeButton from "./BackHomeButton";
 
-const preferredPrograms = [
-	{
-		id: 1,
-		option: "Computer Science",
-	},
-	{
-		id: 2,
-		option: "Psychology",
-	},
-	{
-		id: 3,
-		option: "Nursing",
-	},
-	{
-		id: 4,
-		option: "Business Administration",
-	},
-	{
-		id: 5,
-		option: "Medicine and Surgery",
-	},
-];
 
- const ApplicationForm = memo(function ApplicationForm() {
+const ApplicationForm = memo(function ApplicationForm() {
 	//useForm Hook from react
 	const { handleSubmit, register, reset, control, formState } = useForm();
 	//Extracting errors
@@ -47,18 +25,48 @@ const preferredPrograms = [
 	//The Custom Hook responsible for calling the API function
 	const { applyForm, isPending } = useApplicationForm();
 
+	//Function for responsible for sending data to the useMutation function 
 	function onSubmit(formData) {
 		if (!formData.fileResume || !formData.fileTranscript) {
-			return toast.error("Please upload a file");
+			return toast.error("Please upload the neccessary files ");
 		}
 
 		if (!confirmed) {
 			return toast.error("Please tick the checkbox for confirmation");
 		}
 
-		applyForm({...formData, confirmation: confirmed }, {onSettled: () => {setSelectedDate("")}});
+		applyForm(
+			{ ...formData, confirmation: confirmed },
+			{
+				onSettled: () => {
+					setSelectedDate(""), reset();
+				},
+			}
+		);
 	}
 
+	const preferredPrograms = [
+		{
+			id: 1,
+			option: "Computer Science",
+		},
+		{
+			id: 2,
+			option: "Psychology",
+		},
+		{
+			id: 3,
+			option: "Nursing",
+		},
+		{
+			id: 4,
+			option: "Business Administration",
+		},
+		{
+			id: 5,
+			option: "Medicine and Surgery",
+		},
+	];
 	return (
 		<div className="w-full sm:w-[40rem] min-h-screen flex flex-col lg:items-center md:w-[48rem] lg:min-w-[64rem]">
 			{/* Navbar*/}
@@ -72,7 +80,7 @@ const preferredPrograms = [
 						{/* Go to home button */}
 						<BackHomeButton />
 
-						<div className="w-full sm:w-[16.121875rem] ">
+						<div className="w-full sm:w-[16.121875rem]">
 							<h3 className="w-full sm:w-[16.121875rem] font-lato font-bold whitespace-nowrap text-[1.875rem] min-h-[2.25rem]">
 								Apply to EduVerse
 							</h3>
@@ -129,10 +137,10 @@ const preferredPrograms = [
 											First Name <span className="text-red-500">*</span>
 										</label>
 										<input
-											className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] "
+											className="max-w-full sm:max-w-[32.375rem] ring outline-none  ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] "
 											type="text"
 											id="firstName"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("firstName", {
 												required: "This field is required",
 											})}
@@ -151,10 +159,10 @@ const preferredPrograms = [
 											Last Name <span className="text-red-500">*</span>
 										</label>
 										<input
-											className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem]  mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] "
+											className="max-w-full sm:max-w-[32.375rem] ring outline-none ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem]  mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] "
 											type="text"
 											id="lastName"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("lastName", {
 												required: "This field is required",
 											})}
@@ -184,10 +192,10 @@ const preferredPrograms = [
 											Email Address<span className="text-red-500 ml-1">*</span>
 										</label>
 										<input
-											className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
+											className="w-full sm:w-[32.375rem] ring outline-none ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 											type="text"
 											id="email"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("email", {
 												required: "This field is required",
 												pattern: {
@@ -210,10 +218,10 @@ const preferredPrograms = [
 											Phone <span className="text-red-500 ">*</span>
 										</label>
 										<input
-											className="max-w-full sm:max-w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem]   mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
+											className="max-w-full sm:max-w-[32.375rem] outline-none ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem]   mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 											type="text"
 											id="phoneNumber"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("phoneNumber", {
 												required: "This field is required",
 											})}
@@ -238,15 +246,15 @@ const preferredPrograms = [
 								<div className="w-full sm:w-full min-h-[4.25rem] mt-4 flex justify-center flex-col md:w-full md:min-h-[4.25rem]">
 									<label
 										className="w-full sm:w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
-										htmlFor="address"
+										htmlFor="streetAddress"
 									>
 										Street Address <span className="text-red-500">*</span>
 									</label>
 									<input
-										className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-full"
+										className="w-full sm:w-[32.375rem] outline-none ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-full"
 										type="text"
 										id="streetAddress"
-										disabled={isPending}
+										disabled={formState.isSubmitting || isPending}
 										{...register("streetAddress", {
 											required: "This field is required",
 										})}
@@ -261,7 +269,7 @@ const preferredPrograms = [
 									{/* City */}
 									<div className="w-full sm:w-full flex flex-col md:mt-4.5 lg:min-w-[16.66625rem]">
 										<label
-											className="w-full sm:w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
+											className="w-full sm:w-[8.92rem] outline-none font-lato font-semibold min-h-[1.15625rem]"
 											htmlFor="city"
 										>
 											City <span className="text-red-500">*</span>
@@ -270,7 +278,7 @@ const preferredPrograms = [
 											className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
 											type="text"
 											id="city"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("city", {
 												required: "This field is required",
 											})}
@@ -283,7 +291,7 @@ const preferredPrograms = [
 									{/* State */}
 									<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col ">
 										<label
-											className="w-full sm:w-[8.92rem] font-lato font-semibold min-h-[1.15625rem]"
+											className="w-full sm:w-[8.92rem] outline-none font-lato font-semibold min-h-[1.15625rem]"
 											htmlFor="state"
 										>
 											State <span className="text-red-500">*</span>
@@ -292,7 +300,7 @@ const preferredPrograms = [
 											className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
 											type="text"
 											id="state"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("state", {
 												required: "This field is required",
 											})}
@@ -311,10 +319,10 @@ const preferredPrograms = [
 											Zip Code <span className="text-red-500">*</span>
 										</label>
 										<input
-											className="w-full sm:w-[32.375rem] ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
+											className="w-full sm:w-[32.375rem] outline-none ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[13.3333rem] lg:min-w-[16.66625rem]"
 											type="text"
 											id="zipCode"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("zipCode", {
 												required: "This field is required",
 											})}
@@ -342,7 +350,7 @@ const preferredPrograms = [
 									{/* 1 */}
 									<div className="w-full sm:w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:min-h-[4.25rem] md:w-[20.5rem] lg:min-w-[25.5rem]">
 										<label
-											className="w-full sm:w-[12.92rem] font-lato font-semibold min-h-[1.15625rem]"
+											className="w-full sm:w-[12.92rem]  font-lato font-semibold min-h-[1.15625rem]"
 											htmlFor="preferredProgram"
 										>
 											{" "}
@@ -351,15 +359,15 @@ const preferredPrograms = [
 
 										<select
 											id="preferredProgram"
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											{...register("preferredProgram", {
 												required: "Select a program",
 											})}
-											className=" w-[32.375rem] px-2 sm:w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
+											className=" w-[32.375rem] px-2 outline-none sm:w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 										>
 											<option
 												value=""
-												disabled=""
+												disabled
 												className="text-xs py-1 font-lato"
 											>
 												Select a program
@@ -379,7 +387,7 @@ const preferredPrograms = [
 										</small>
 									</div>
 
-									{/* starting date 2 */}
+									{/* starting date  */}
 									<div className="max-w-full sm:max-w-full min-h-[4.25rem] mt-5 flex justify-center flex-col md:min-h-[4.25rem] md:w-[20.5rem]">
 										<label
 											className="max-w-full sm:max-w-[12.92rem] font-lato font-semibold min-h-[1.15625rem]"
@@ -389,7 +397,7 @@ const preferredPrograms = [
 											<span className="text-red-500">*</span>
 										</label>
 										<input
-											disabled={isPending}
+											disabled={formState.isSubmitting || isPending}
 											type="date"
 											id="preferredDate"
 											{...register("preferredDate", {
@@ -397,7 +405,7 @@ const preferredPrograms = [
 											})}
 											value={selectedDate}
 											onChange={(e) => setSelectedDate(e.target.value)}
-											className=" max-w-[32.375rem] px-2 sm:max-w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
+											className=" max-w-[32.375rem] px-2 outline-none sm:max-w-full ring ring-zinc-400 min-h-[1.375rem] sm:pt-[0.5rem] sm:pb-[0.5rem] sm:pr-[0.75rem] sm:pl-[0.75rem] mt-[0.5rem] mb-[0.00625rem] mr-[0.00625rem] rounded-md ml-[0.00625rem] md:w-[20.5rem] lg:min-w-[25.5rem]"
 										/>
 										<small className="text-[0.875rem] font-lato mt-1 text-red-500">
 											{errors && errors?.preferredDate?.message}
@@ -415,14 +423,14 @@ const preferredPrograms = [
 									</label>
 									<textarea
 										id="prevEducation"
-										disabled={isPending}
+										disabled={formState.isSubmitting || isPending}
 										{...register("prevEducation", {
 											required: "This field is required",
 										})}
 										minLength="4"
 										maxLength="500"
 										placeholder="Please describe your educational background"
-										className="h-24 border text-sm font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-2 lg:min-w-[52rem]"
+										className="h-24 border text-sm outline-none font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-2 lg:min-w-[52rem]"
 									></textarea>
 									<small className="text-[0.875rem] font-lato mt-1 text-red-500 ">
 										{errors && errors?.prevEducation?.message}
@@ -453,9 +461,9 @@ const preferredPrograms = [
 									})}
 									minLength=""
 									maxLength="500"
-									disabled={isPending}
+									disabled={formState.isSubmitting || isPending}
 									placeholder="Tell us about your goals and why you choose EduVerse..."
-									className="h-24 text-sm border font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-1 md:w-full lg:min-w-[52rem]"
+									className="h-24 text-sm border outline-none font-medium placeholder-text-gray-500 border-gray-500 rounded-sm placeholder:px-2 mt-1 md:w-full lg:min-w-[52rem]"
 								></textarea>
 								<small className="text-[0.875rem] font-lato mt-1 text-red-500 ">
 									{errors && errors?.prevEducation?.message}
@@ -497,14 +505,14 @@ const preferredPrograms = [
 										control={control}
 										rules={{ required: "Please upload your transcript" }}
 										render={({
-											field: { onChange, value, ref }, //`field` object: Contains `onChange`, `value`, and `ref`.
+											field: { onChange, ref }, //`field` object: Contains `onChange`, `value`, and `ref`.
 											fieldState: { error },
 										}) => (
 											<>
 												<input
 													type="file"
 													id="fileTranscript"
-													disabled={isPending}
+													disabled={formState.isSubmitting || isPending}
 													ref={ref} // RHF's ref...  `ref`: Used to register the input with RHF.
 													onChange={(e) => {
 														// `onChange`: Function to update the form state.
@@ -518,7 +526,7 @@ const preferredPrograms = [
 													}}
 													value={undefined} // CRITICAL for file inputs
 													accept=".pdf,.doc,.docx"
-													className="max-w-full opacity-0 absolute inset-0 w-full h-full cursor-pointer sm:max-w-full min-h-[4.75rem] mx-auto container md:w-[20.5rem] md:min-h-[7rem]"
+													className="max-w-full outline-none opacity-0 absolute inset-0 w-full h-full cursor-pointer sm:max-w-full min-h-[4.75rem] mx-auto container md:w-[20.5rem] md:min-h-[7rem]"
 												/>
 												{error && (
 													<small className="text-[0.875rem] font-lato mt-1 text-red-500">
@@ -560,7 +568,7 @@ const preferredPrograms = [
 												<input
 													type="file"
 													id="fileResume"
-													disabled={isPending}
+													disabled={formState.isSubmitting || isPending}
 													{...field}
 													onChange={(e) => {
 														const file = e.target.files?.[0];
@@ -603,7 +611,7 @@ const preferredPrograms = [
 									name=""
 									id="checkBox"
 									checked={confirmed}
-									onChange={() => setConfirmed((confirm) => !confirm)}
+									onChange={() => setConfirmed(confirm => !confirm)}
 								/>
 								<small className="text-gray-500 font-lato font-light">
 									By clicking this box, you agree to our terms of Service and
@@ -621,7 +629,6 @@ const preferredPrograms = [
 			</div>
 		</div>
 	);
-}
-)
+});
 
 export default ApplicationForm;

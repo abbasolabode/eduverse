@@ -129,11 +129,9 @@ export default function BiodataForm() {
 
 	// Here you can handle the form submission, e.g., send data to an API
 	function onSubmit(formData) {
-		if(!formData) return;
-		  //setPreview(null);
-		  const file = fileInputRef.current?.files?.[0];// Access the file from the file input
-		  console.log(file)
-		  mutate({...formData, photo: file, }); // Call the mutation function to update the biodata form
+		if (!formData) return; //Check if the data does not actually exists
+		const file = fileInputRef.current?.files?.[0]; // Access the file from the file input
+		mutate({ ...formData, photo: file }); // Call the mutation function to update the biodata form
 	}
 
 	return (
@@ -406,7 +404,7 @@ export default function BiodataForm() {
 
 						<div className="min-h-[10rem] w-[10.11rem] pt-10 flex flex-col justify-center items-center">
 							<Controller
-								name="photo"
+								name="photo" //Registers the input field with React Hook Form with the name "photo"
 								disabled={formState.isSubmitting || isPending}
 								control={control} // Register the file input with react-hook-form
 								rules={{ required: "Profile photo is required" }} // Validation rule for the file input
@@ -419,16 +417,18 @@ export default function BiodataForm() {
 											type="file"
 											accept="image/*" // Accept only image files
 											ref={(e) => {
-												ref(e); // Set the ref for the file input  // This is necessary for react-hook-form to manage the input
-												fileInputRef.current = e; // Store the file input reference in the ref // This allows us to access the file input later // This is necessary for react-hook-form to manage the input
+												//e is the actual <input> DOM node
+												ref(e); // Set the ref for the file input // This is necessary for react-hook-form to manage the input
+												fileInputRef.current = e;
+												console.log(fileInputRef.current?.file?.[0]); // Store the file input reference in the ref // This allows us to access the file input later // This is necessary for react-hook-form to manage the input ....// e = actual <input> DOM node
 											}}
 											onChange={(e) => {
 												const file = e.target.files[0]; //The file input returns an array of files, we access the first file using [0]
 												//If file exists, it creates a temporary URL for the file using URL.createObjectURL(file) and sets it to the preview state
 												if (file) {
 													const imageUrl = URL.createObjectURL(file); // This creates a temporary URL for the file
-													setPreview(imageUrl);
-													onChange(file); // pass the file to RHF // This will update the form state with the selected file //// This is react-hook-form's onChange // // This comes from the Controller's render props
+													setPreview(imageUrl); // react state
+													onChange(file); // pass the file to RHF // This will update the form state with the selected file // This is react-hook-form's onChange // // This comes from the Controller's render props
 												}
 											}}
 											className="hidden"

@@ -6,9 +6,9 @@ const AuthContext = createContext();
 
 //Function to provide the context to the children
 function AuthContextProvider({ children }) {
+	//Reading the user data from useUser hook
 	const { user = {} } = useUser();
     
-	console.log(user);
 
 	// 2. PROVIDE THE CONTEXT TO THE CHILDREN
 	// The AuthContext.Provider is used to provide the context value to the children components

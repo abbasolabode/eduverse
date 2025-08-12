@@ -7,9 +7,9 @@ export default function Courses() {
   if(isLoading) return <Spinner loadingCourse="Please wait while loading your academic courses" />;
 
   return (
-    <div  className="min-w-full md:min-w-[21.625rem] flex flex-col gap-5 md:min-h-[13.75rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] ">
+    <div  className="min-w-full md:min-w-[40.625rem] flex flex-col gap-5 md:min-h-[13.75rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] sm:w-[38rem] sm:pl-[1.5rem] sm:pr-[1.5rem] sm:pt-[1.5rem] sm:pb-[1.5rem] mx-auto sm:items-center">
         {courses.map(course => (
-          <div key={course?.id} className="min-w-full md:min-w-[18.625rem] md:min-h-[13.75rem] rounded-md shadow-lg bg-white ">
+          <div key={course?.id} className="min-w-full md:w-[22.375rem] md:min-h-[13.75rem] rounded-md shadow-lg bg-white ">
            <div className="min-w-full md:min-w-[18.625rem] md:min-h-[6.375rem] flex flex-col gap-1 px-4 py-2">
               <h3  className="md:min-h-[1.75rem] text-[#020817] font-semibold font-lato text-[1.125rem] ">{course?.courseTitle}</h3>
               <p className="text-[#64748B] font-lato text-[0.875rem] font-semibold">{course?.courseCode}</p>

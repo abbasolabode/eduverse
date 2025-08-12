@@ -6,12 +6,19 @@ import { IoKey } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
 import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
 import BackHomeButton from "../../ui/BackHomeButton";
 import LogoutButton from "../../ui/LogoutButton";
 import Footer from "../../ui/Footer";
-import { useEffect } from "react";
 
-const lecturerDashboardLinks = [
+
+
+export default function LecturerDashboard() {
+	useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+ const lecturerDashboardLinks = [
 	{
 		id: 1,
 		icon: <FaBookOpen />,
@@ -21,7 +28,7 @@ const lecturerDashboardLinks = [
 	{
 		id: 2,
 		icon: <FaUserFriends />,
-		link: "students",
+		link: "studentsList",
 		title: "Students",
 	},
 	{
@@ -36,30 +43,32 @@ const lecturerDashboardLinks = [
 		link: "uploadGrades",
 		title: "Upload Grades",
 	},
-
 	{
 		id: 5,
+		icon: <GoUpload />,
+		link: "assignmentForm",
+		title: "Assignments",
+	},
+
+	{
+		id: 6,
 		icon: <IoKey />,
 		link: "password",
 		title: "Password",
 	},
 ];
 
-export default function LecturerDashboard() {
-	useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 	return (
-		<div className="w-full sm:w-[40rem] min-h-screen flex flex-col md:w-[48rem] bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50">
-			<header className="fixed w-full z-50">
+		<div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 overflow-hidden">
+			<header className="fixed w-full z-50  ">
 				<Navbar />
 			</header>
 
 			{/* Dashboard header */}
-			<div className="min-w-full md:min-w-[48rem] md:min-h-[4.5rem] flex items-center md:pl-[1.5rem] md:pr-[1.5rem] border border-gray-300 mt-[6.5rem]   ">
-				<div className="flex min-w-full md:min-w-full justify-between">
+			<div className="w-full md:max-w-[48rem] md:min-h-[4.5rem] flex items-center md:pl-[1.5rem] md:pr-[1.5rem] border-gray-300 mt-[6.5rem] sm:min-w-[40rem] overflow-hidden">
+				<div className="flex w-full md:min-w-full justify-between sm:min-w-full sm:min-h-[4.25rem] sm:items-center sm:pl-[1rem] sm:pr-[1rem]">
 					{/* Logo */}
-					<div className="min-w-full md:min-w-[16.588rem] md:min-h-[2rem] flex items-center gap-1">
+					<div className="w-full md:max-w-[16.588rem] md:min-h-[2rem] flex items-center gap-1">
 						<span className="">
 							<FaGraduationCap className="w-[2rem] min-h-[2rem] " />
 						</span>
@@ -69,17 +78,17 @@ export default function LecturerDashboard() {
 					</div>
 
 					{/* Buttons - home & logout */}
-					<div className="min-w-full md:min-w-[14.483125rem]">
-						<div className="flex items-center justify-center gap-3 md:min-h-[2.5rem]">
-							<BackHomeButton lectBackHomeStyle="min-w-full font-semibold rounded-sm font-lato md:min-w-[5.53125rem] flex items-center text-center md:min-h-[2.2rem]">
+					<div className="max-w-full md:max-w-[14.483125rem] sm:min-w-[13.48325rem] sm:min-h-[2.25rem]">
+						<div className="flex items-center justify-center gap-3 md:min-h-[2.5rem] sm:min-w-[13.48325rem] sm:justify-evenly sm:min-h-[2.25rem] ">
+							<BackHomeButton lectBackHomeStyle="max-w-full font-semibold rounded-sm font-lato md:max-w-[5.53125rem] flex items-center text-center md:min-h-[2.2rem] sm:min-h-[2.25rem] sm:pl-[0.75rem] sm:pr-[0.75rem] sm:min-w-[6.451875rem]">
 								<span className="flex items-center gap-2">
 									<CiHome className="" />
 									Home
 								</span>
 							</BackHomeButton>
 
-							<div className="min-w-full font-semibold rounded-sm font-lato gap-2 md:min-w-[6.53125rem] flex items-center md:min-h-[2.5rem]">
-								<LogoutButton />
+							<div className="max-w-full font-semibold rounded-sm font-lato gap-2 md:max-w-[6.53125rem] flex items-center md:min-h-[2.5rem] sm:min-w-[6.451875rem] sm:min-h-[2.25rem]">
+								<LogoutButton lectBtnStyle=" sm:min-h-[2.25rem] sm:pl-[0.75rem] sm:pr-[0.75rem]" />
 							</div>
 						</div>
 					</div>
@@ -87,13 +96,13 @@ export default function LecturerDashboard() {
 			</div>
 
 			{/* Links */}
-			<div className="min-w-full md:min-w-[44.5rem] min-h-[2rem] md:min-h-[6rem] flex flex-col justify-center md:pl-[0.25rem] md:pr-[0.25rem] md:pt-[0.25rem] mdLpb-[0.25rem] ">
-				<div className="min-w-full md:min-w-[44.5rem] flex justify-center items-center gap-3 min-h-[2rem] md:min-h-[2rem] md:pl-[0.25rem] md:pr-[0.25rem] md:pt-[0.25rem] mdLpb-[0.25rem] ">
+			<div className="w-full md:min-w-[44.5rem] min-h-[2rem] md:min-h-[6rem] flex flex-col items-center justify-center md:pl-[0.25rem] md:pr-[0.25rem] md:pt-[0.25rem] mdLpb-[0.25rem] sm:min-w-[38rem]">
+				<div className="min-w-full md:min-w-[44.5rem] grid grid-cols-3 justify-center mx-auto items-center gap-3 min-h-[2rem] md:min-h-[2rem] md:pl-[0.25rem] md:pr-[0.25rem] md:pt-[0.25rem] md:pb-[0.25rem] sm:min-w-full sm:pl-[0.25rem] sm:pr-[0.25rem] sm:pt-[0.25rem] sm:pb-[0.25rem]">
 					{lecturerDashboardLinks?.map((item) => (
 						<Link
 							to={item.link}
 							key={item.id}
-							className="flex items-center hover:shadow-lg hover:transition-all hover:duration-300 hover:bg-gray-600  pl-[0.75rem] text-[#64748B] rounded-sm pr-[0.75rem] pt-[0.375rem] pb-[0.375rem]    min-h-[1.25rem] justify-center gap-1 border min-w-full md:min-w-[7.399rem]"
+							className="flex items-center hover:shadow-lg hover:transition-all hover:duration-300 hover:bg-gray-600  pl-[0.75rem] text-[#64748B] rounded-sm pr-[0.75rem] pt-[0.375rem] pb-[0.375rem] min-h-[1.25rem] justify-center gap-1 border min-w-full md:min-w-[7.399rem]"
 						>
 							{item.icon}
 							<p className="text-sm font-lato font-semibold ">{item.title}</p>
@@ -105,7 +114,7 @@ export default function LecturerDashboard() {
 			{/* Outlets */}
 			{/* Content area for nested routes */}
 			{/* Render all children routes here */}
-			<div className="content-area md:min-w-[45rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[2rem] md:pb-[2rem]">
+			<div className="content-area md:min-w-[45rem] md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[2rem] md:pb-[2rem] sm:min-w-[38rem] sm:pl-[1rem] sm:pt-[1rem] sm:pb-[1rem] sm:pr-[1rem]">
 				<Outlet />
 			</div>
 
@@ -114,3 +123,25 @@ export default function LecturerDashboard() {
 		</div>
 	);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

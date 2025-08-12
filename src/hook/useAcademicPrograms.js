@@ -11,3 +11,5 @@ export function useAcademicPrograms(){
    //Return the destructured elements from the API
    return {academicPrograms, isLoadingAcademicPrograms};
 }
+
+//This custom hook is responsible for fetching data using the useQuery function, and returning the data gotten from a remote server

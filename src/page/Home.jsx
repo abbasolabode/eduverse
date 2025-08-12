@@ -12,6 +12,7 @@ export default function Home() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  
   return (
     <main className="w-full min-h-screen mx-auto ">
       {/* Navbar */}

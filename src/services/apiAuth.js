@@ -23,9 +23,12 @@ export async function loginUser({ email, password }) {
 	return data;
 }
 
+
+
+
 /////////////////// GET EXISTING USER IF THE USER EXISTS ///////////////////////////////
 //The getCurrentUser function is responsible for checking if the user is logged in and fetching their data
-//It checks the session and retrieves the user data if a session exists
+//It checks the session and retrieves the user data if a session exists i.e session means that there's an existing
 //It returns the user object with their metadata, including userType
 //This function is used to determine if the user is logged in and to fetch their details
 

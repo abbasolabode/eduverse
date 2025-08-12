@@ -43,6 +43,7 @@ export async function updateBiodataForm(biodataForm) {
     .insert([{ ...biodataForm, photo: imageUrl }]);
 
   if (error) throw error;
+  
   return data;
 }
 

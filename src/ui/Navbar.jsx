@@ -52,15 +52,12 @@ export default function Navbar() {
 			{/* Container For logo & button */}
 			<div className="min-h-[2.25rem] px-[2rem] py-[2rem] flex justify-between max-auto items-center">
 				<Logo />
+
+				{/* Button to open the menu for mobile */}
 				<button
 					className="flex w-[2rem] min-h-[2rem] lg:hidden lg:text-[1.25rem] lg:min-h-[1.75rem]"
-					onClick={() => setIsOpen(true)}
-				>
-					{isOpen ? (
-						<MdClose className="w-full min-h-full text-[2rem] transition-transform duration-300 hover:rotate-80" />
-					) : (
-						<CiMenuBurger className="w-full min-h-full text-[2rem] transition-transform duration-300 hover:rotate-90" />
-					)}
+					onClick={() => setIsOpen(true)}>
+				<CiMenuBurger className="w-full min-h-full text-[2rem] transition-transform duration-300 hover:rotate-90" />
 				</button>
 			</div>
 

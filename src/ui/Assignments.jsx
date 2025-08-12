@@ -1,16 +1,22 @@
 /* eslint-disable no-unused-vars */
-import { useAssignments } from "../hook/useAssignments";
+import { formatDate } from "../helper";
+import { useGetAssignment } from "../hook/useGetAssignment";
 import Spinner from "./Spinner";
 
 export default function Assignments() {
-	const {data: assignments = [], isLoading} = useAssignments();
-	console.log(assignments)
 
-	
+	const {data:  assignments = [], isLoading} = useGetAssignment()
+	console.log(assignments);
 
-	if(isLoading) return <Spinner  loadingAssignment="Please wait while updating your assignments"/>
+
+	if (isLoading)
+		return (
+			<Spinner loadingAssignment="Please wait while updating your assignments" />
+		);
+
+		
 	return (
-		<div className="min-w-full md:min-w-[44.875rem] flex flex-col gap-6 bg-indigo-100 items-center justify-center pl-6 pr-6 pt-8 pb-8 mt-5">
+		<div className="min-w-full md:min-w-[44.875rem]  flex flex-col gap-6 bg-indigo-100 items-center justify-center pl-6 pr-6 pt-8 pb-8 mt-5">
 			{assignments?.map((assignment) => (
 				<div
 					key={assignment.id}
@@ -20,9 +26,9 @@ export default function Assignments() {
 						<div className="flex items-center justify-between p-4 gap-2">
 							<span>
 								<h3 className="text-[1.5rem] text-[#020817] md:min-h-[1.4rem] font-lato font-semibold">
-									{assignment?.courseTitle}
+									{assignment?.selectCourse}
 								</h3>
-								<p className="text-[#64748B]">{assignment?.subject}</p>
+								<p className="text-[#64748B]">{assignment?.assignmentTitle}</p>
 							</span>
 
 							<p
@@ -32,29 +38,29 @@ export default function Assignments() {
 										: "bg-[#020817]"
 								}`}
 							>
-								{assignment?.status}
+								{assignment?.selectStatus}
 							</p>
 						</div>
 
-						<div className="flex justify-between gap-2 p-4 font-lato">
+						<div className="flex justify-between gap-3 p-4 font-lato">
 							<span>
 								<h3>Due Date:</h3>
-								<p className="text-[#111827] font-lato font-bold">
-									{assignment?.date}
+								<p className="text-[#111827] font-lato font-medium">
+									{formatDate(assignment?.created_at)}
 								</p>
 							</span>
-							<span>
-								<h3>Type:</h3>
-								<p className="text-[#111827] font-lato font-bold">
-									{assignment?.type}
+
+							<span className="">
+								<h3>Description:</h3>
+								<p className="text-[#111827] font-lato font-medium  whitespace-normal">
+									{assignment?.description}
 								</p>
 							</span>
 
 							<span>
-								<h3>Grade:</h3>
+								<h3>Type:</h3>
 								<p className="text-[#111827] font-lato font-bold">
-									{assignment?.grade}
-									{assignment?.grade === "Not graded" ? "" : "%"}
+									{assignment?.selectType}
 								</p>
 							</span>
 						</div>

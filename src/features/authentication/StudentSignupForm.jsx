@@ -24,6 +24,7 @@ export default function StudentSignupForm() {
 	//The function responsible for calling the mutation function with the data passed from the handleSubmit function
 	//Destructured the data passed to onSubmit function
 	function onSubmit( formData ) {
+		if(!formData) return;
 		//Determine if the user is a student
 		const userType = "student";
 		//Call the signup function from the useSignup hook with the data and userType
@@ -293,7 +294,7 @@ export default function StudentSignupForm() {
 							</button>
 						</div>
 						<span className="min-w-full sm:min-w-[29rem] text-center font-lato font-light text-sm mt-[-1rem]">
-							Already have an account{" "}
+							Already have an account?{" "}
 							<Link to="/studentLogin" className="font-semibold text-blue-500">
 								Sign in here
 							</Link>

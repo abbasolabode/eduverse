@@ -8,7 +8,7 @@ export default function MyCourses() {
 	if(isLoading) return <Spinner myCourseMsg="Please wait while updating your dashboard" />
 
 	return (
-		<div className="min-w-full md:min-w-[45rem] md:min-h-[31.5rem] md:grid md:grid-cols-2 gap-3 ">
+		<div className="sm:min-w-[38rem] min-w-full md:min-w-[45rem] md:min-h-[31.5rem] md:grid md:grid-cols-2 gap-3 sm:grid sm:grid-cols-2">
 			{data?.map((item) => (
 				<div
 					key={item?.id}

@@ -16,7 +16,6 @@ export default function StudentLoginForm() {
 
 	//The function responsible for calling the mutation function
 	const onSubmit = function (formData) {
-		console.log(formData);
 		if (!formData) return;
 		//Determine if the user is a student
 		const userType = "student";
@@ -140,16 +139,16 @@ export default function StudentLoginForm() {
 					<div className="sm:min-w-[23rem] min-h-[1.5rem] md:mt-[-2rem] pt-5">
 						<button className="sm:min-w-full min-h-[1.5rem] sm:pr-[1rem] rounded-lg sm:pl-[1rem] sm:pt-[0.5rem] sm:pb-[0.5rem] font-lato font-medium text-sm bg-gradient-to-r from-blue-600 to-purple-600  text-white outline-none ">
 							{formState?.isSubmitting || isPending
-								? "Signing in Progress..."
+								? "Sign in Progress..."
 								: "Sign in as Student"}
 						</button>
 					</div>
 					<div>
-						<p className="font-lato mt-1 font-light">
-							Don't have an account?{" "}
+						<p className="font-lato mt-1 font-light py-5">
+							Don't have an account?
 							<Link
 								to="/signup"
-								className="text-blue-500 font-bold hover:underline hover:underline-offset-4 "
+								className=" pl-1 text-blue-500 font-bold hover:underline hover:underline-offset-4 "
 							>
 								Sign up here
 							</Link>

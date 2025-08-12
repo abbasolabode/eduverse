@@ -10,12 +10,12 @@ import Footer from "../../ui/Footer";
 //This component handles the login functionality for lecturers
 //It uses the useForm hook from react-hook-form for form handling and validation
 export default function LecturerLoginForm() {
-	//Destructured values from useForm
-	const { handleSubmit, register, reset, formState } = useForm();
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
+
+	//Destructured values from useForm
+	const { handleSubmit, register, reset, formState } = useForm();
 
 	//Custom hook
 	const { login, isPending } = useLoginUser();
@@ -148,16 +148,16 @@ export default function LecturerLoginForm() {
 							className="sm:min-w-full min-h-[1.5rem] sm:pr-[1rem] rounded-lg sm:pl-[1rem] sm:pt-[0.5rem] sm:pb-[0.5rem] font-lato font-medium text-sm bg-gradient-to-r from-blue-600 to-green-600  text-white outline-none "
 						>
 							{formState.isSubmitting || isPending
-								? "Signing in progress..."
+								? "Sign in progress..."
 								: "Login as Lecturer"}
 						</button>
 					</div>
 					<div>
-						<p className="font-lato mt-1 font-light">
+						<p className="font-lato mt-1 font-light py-5">
 							Don't have an account?
 							<Link
 								to="/signup"
-								className="text-blue-500 hover:underline hover:underline-offset-4 font-bold"
+								className="text-blue-500 pl-1 hover:underline hover:underline-offset-4 font-bold"
 							>
 								Sign up here
 							</Link>

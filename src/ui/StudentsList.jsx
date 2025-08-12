@@ -2,14 +2,13 @@
 import { useBiodata } from "../hook/useBiodata";
 import { useStudentList } from "../hook/useStudentList";
 
-export default function Students() {
-  const {data: studentList = []} = useStudentList();
-  console.log(studentList);
-  
-  const {biodata} = useBiodata();
-  
-  return (
-		<div className="min-h-[38.5rem] min-w-full md:min-w-[45rem] md:pl-[1.5rem] bg-white rounded-md shadow-md md:pr-[1.5rem] md:pt-[2rem] md:pb-[2rem]">
+export default function StudentsList() {
+	const { data: studentList = [] } = useStudentList();
+
+	const { biodata } = useBiodata();
+
+	return (
+		<div className="min-h-[38.5rem] min-w-full md:min-w-[45rem] md:pl-[1.5rem] bg-white rounded-md shadow-md md:pr-[1.5rem] md:pt-[2rem] md:pb-[2rem] sm:pl-[1.5rem] sm:pt-[1.5rem] sm:pr-[1.5rem] sm:pb-[1.5rem]">
 			<div className="min-w-full md:min-w-full flex flex-col gap-5">
 				<div className="min-w-full font-lato flex flex-col gap-1 md:min-w-[41.875rem] md:min-h-[1.5rem] ">
 					<h3 className="font-semibold text-2xl text-[#020817]">
@@ -50,7 +49,7 @@ export default function Students() {
 									Current Grade: {list?.studentGrade || "Not yet graded"}
 								</span>
 								<span className=" min-w-[2.7998125rem] font-semibold text-xs pl-[0.625rem] shadow-sm pr-[0.625rem] bg-gray-50 rounded-2xl pt-[0.125rem] pb-[0.125rem]">
-									 {list?.studentGp || "Not yet graded"}
+									{list?.studentGp || "Not yet graded"}
 								</span>
 							</div>
 						</div>

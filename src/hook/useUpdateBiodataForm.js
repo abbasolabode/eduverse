@@ -9,8 +9,7 @@ export function useUpdateBiodataForm() {
 	const { mutate, isPending } = useMutation({
 		mutationFn: updateBiodataForm,// This function is used to update the biodata form
         
-        // This function (onSuccess
-		// ) is called when the mutation is successful
+        // This function (onSuccess) is called when the mutation is successful
 		onSuccess: () => {
 			toast.success("Your biodata has been updated successfully");
 			queryClient.invalidateQueries({ queryKey: ["biodataForm"] });

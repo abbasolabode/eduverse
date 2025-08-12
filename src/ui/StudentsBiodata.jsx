@@ -8,15 +8,15 @@ export default function StudentsBiodata() {
  
 
 	return (
-		<div className="md:min-w-[44.875rem] min-w-full flex flex-col gap-4">
+		<div className="md:min-w-[44.875rem] min-w-full flex flex-col gap-4 sm:max-w-[40rem] mx-auto items-center overflow-hidden">
 			{studentBiodata?.map((studentData) => (
 				<div
 					key={studentData.id}
-					className="md:min-w-full min-w-full md:min-h-[14.5rem] rounded-lg shadow-lg bg-white"
+					className="md:min-w-full min-w-full md:min-h-[14.5rem] rounded-lg shadow-lg bg-white sm:max-w-[38rem] sm:min-h-[24.6rem] pl-[1rem] pr-[1rem] pt-[1rem] pb-[1rem]"
 				>
 					{/* Top Container */}
-					<div className=" md:min-h-[6.125rem] flex items-center justify-between md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] ">
-						<span className="flex flex-col justify-center font-lato ">
+					<div className=" md:min-h-[6.125rem] flex items-center justify-between md:pl-[1.5rem] md:pr-[1.5rem] md:pt-[1.5rem] md:pb-[1.5rem] sm:min-w-[36.75rem] sm:gap-7 ">
+						<span className="flex flex-col justify-center font-lato sm:min-w-[27rem]">
 							<h3 className="min-w-full md:min-w-[7.22875rem] font-semibold text-[1.5rem] text-[#020817] ">
 								{studentData?.fullName}
 							</h3>
@@ -25,17 +25,17 @@ export default function StudentsBiodata() {
 							</p>
 						</span>
 
-						<p className="min-w-full md:min-w-[5.165rem] text-[0.75rem] shadow-gray-100 bg-white shadow-2xl font-medium rounded-2xl md:min-h-[1rem] md:pt-[0.125rem] md:pb-[0.125rem] md:pl-[0.625rem] md:pr-[0.625rem] text-[#020817]">
+						<p className="min-w-full md:min-w-[5.165rem] text-[0.75rem] shadow-gray-100 bg-green-500 shadow-2xl font-semibold rounded-2xl md:min-h-[1rem] md:pt-[0.125rem] md:pb-[0.125rem] md:pl-[0.625rem] md:pr-[0.625rem] text-white sm:min-w-[6rem] pl-1.5 pr-1.5 pt-0.5 pb-0.5 text-center">
 							{studentData?.studentId}
 						</p>
 					</div>
 
 					{/* Bottom container */}
 					<div className="md:min-w-[44.875rem] min-w-full">
-						<div className=" md:min-h-[8.375rem] flex items-center justify-between md:pl-[1.5rem] md:pr-[1.5rem] md:pb-[1.5rem] ">
+						<div className=" md:min-h-[8.375rem] flex items-center justify-between md:pl-[1.5rem] md:pr-[1.5rem] md:pb-[1.5rem] sm:flex sm:flex-col">
 							{/* Personal Information */}
 							<div className="min-w-full md:min-w-[12.958125rem] md:min-h-[6.875rem] flex flex-col gap-3">
-								<h4 className="font-lato font-medium min-w-full md:min-w-full text-[#020817]">
+								<h4 className="font-lato font-medium min-w-full md:min-w-full text-[#020817] mt-3">
 									Personal Information
 								</h4>
 
@@ -66,7 +66,7 @@ export default function StudentsBiodata() {
 							</div>
 
 							{/* Academic Information */}
-							<div className=" md:min-h-[4.75rem] flex flex-col gap-1 min-w-full font-lato md:min-w-[12.958125rem]">
+							<div className=" md:min-h-[4.75rem] flex flex-col gap-1 min-w-full font-lato md:min-w-[12.958125rem] mt-5">
 								<h4 className="font-lato font-medium min-w-full md:min-w-full text-[#020817]">
 									Academic Information
 								</h4>
@@ -98,7 +98,7 @@ export default function StudentsBiodata() {
 							</div>
 
 							{/* Performance*/}
-							<div className=" md:min-h-[4.75rem] flex flex-col gap-1 min-w-full font-lato md:min-w-[12.958125rem]">
+							<div className=" md:min-h-[4.75rem] flex flex-col gap-1 min-w-full font-lato md:min-w-[12.958125rem] mt-5">
 								<h4 className="font-lato font-medium min-w-full md:min-w-full text-[#020817]">
 									Performance
 								</h4>
